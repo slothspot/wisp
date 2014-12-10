@@ -122,7 +122,7 @@ case class Highchart(
                       colors: Option[Array[Color.Type]] = None,
                       credits: Option[Credits] = Some(Credits()),
                       exporting: Option[Exporting] = Some(Exporting()),
-                      legend: Option[Legend] = Some(Legend()),
+                      legend: Option[Legend] = None,
                       // plotOptions
                       subtitle: Option[Title] = None,
                       setTurboThreshold: Boolean = true,
