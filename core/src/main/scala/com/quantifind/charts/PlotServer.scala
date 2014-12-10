@@ -1,11 +1,9 @@
 package com.qf.charts
 
-import com.qf.util.UnfilteredWebApp
 import scala.concurrent.{Await, Promise}
 import unfiltered.request._
 import unfiltered.response._
 import scala.concurrent.duration.Duration
-
 
 /**
  * User: austin

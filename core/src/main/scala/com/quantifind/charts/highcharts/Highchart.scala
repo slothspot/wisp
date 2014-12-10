@@ -1,5 +1,14 @@
 package com.qf.charts.highcharts
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.core.Version
+import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.datatype.joda.JodaModule
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
+//import com.qf.data.mongo.LinkedHashMapToKeyValues
+//import com.qf.data.mongo.QProduct
+//import com.qf.data.mongo.QProductSerializer
+
 import scala.collection._
 import com.fasterxml.jackson.databind._
 
@@ -27,6 +36,33 @@ object Highchart {
   implicit def stringToTitle(s: String) = Some(Title(text = s))
 
   implicit def optionWrap[T](value: T): Option[T] = Option(value)
+
+  // TODO MOVE TODO WHAT DO WE NEED
+  // jackson for json processing - TODO include quantifind defaults ?
+  @transient var objectMapper: ObjectMapper = new ObjectMapper()
+  // Don't write null map values
+  objectMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false)
+
+  objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
+
+  // Don't fail on serialization when there are null fields in the class
+  objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+
+  // When there are unknown properties in the JSON (some unused fields), don't fail
+  objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+
+  //when there is a JSON_STRING instead of JSON_ARRAY and we want an array, just put it in an array
+  objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
+
+  // Scala specific. Register the scala module with the asl mapper
+  objectMapper.registerModule(DefaultScalaModule)
+
+  val qfmodule = new SimpleModule("QfModule", new Version(1, 0, 0, null, "com.qf", "json"));
+//  qfmodule.addSerializer(classOf[mutable.LinkedHashMap[String, Seq[String]]], new LinkedHashMapToKeyValues())
+//  qfmodule.addSerializer(classOf[QProduct], new QProductSerializer())
+//  mapper.registerModule(qfmodule)
+
+  objectMapper.registerModule(new JodaModule())
 }
 
 abstract class HighchartKey(var _name: String) {
@@ -71,9 +107,6 @@ object HighchartKey {
 
   def someStyleToServiceFormat(style: Option[CSSObject]) =
   {if (style != None) Map("style" -> style.get.toString()) else Map()}
-
-  // jackson for json processing - TODO include quantifind defaults ?
-  @transient private var _objectMapper: ObjectMapper = new ObjectMapper()
 }
 
 // Not going to implement: loading
@@ -100,7 +133,7 @@ case class Highchart(
 
   import HighchartKey._
 
-  def toJson = ScalaJsonFactory.writeValueAsString(jsonMap)
+  def toJson = Highchart.objectMapper.writeValueAsString(jsonMap)
 
   def jsonMap: Map[String, Any] = {
     if(series.size == 0) System.err.println("Tried to create a chart with no series")

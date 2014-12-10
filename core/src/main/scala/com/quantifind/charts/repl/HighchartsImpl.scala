@@ -3,7 +3,6 @@ package com.qf.charts.repl
 import java.io.{PrintWriter, File}
 
 import com.qf.charts.highcharts.{Series, SeriesType, Highchart}
-import org.apache.commons.io.FileUtils
 import scala.concurrent.Promise
 
 /**
@@ -52,10 +51,11 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     t
   }
 
-  val _reloadJs = FileUtils.readFileToString(new File(getClass().getResource("/nathan-reloader.js").getPath))
+//  val _reloadJs = scala.io.Source.fromFile(new File(getClass().getResource("/nathan-reloader.js").getPath))
   def reloadJs =
-    if (serverMode) "$.ajax({url: '/check', dataType: 'jsonp', complete: function(){location.reload()}})"
-    else _reloadJs
+//    if (serverMode)
+      "$.ajax({url: '/check', dataType: 'jsonp', complete: function(){location.reload()}})"
+//    else _reloadJs
 
   val jsHeader =
     """
