@@ -20,14 +20,6 @@ Welcome to Scala version 2.10.3 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_2
 Type in expressions to have them evaluated.
 Type :help for more information.
 
-scala>
-
-scala>
-
-scala>
-
-scala>
-
 scala> import com.qf.charts.repl.Highcharts._
 import com.qf.charts.repl.Highcharts._
 
