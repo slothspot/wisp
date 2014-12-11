@@ -3,6 +3,7 @@ package com.qf.charts.repl
 import java.io.{PrintWriter, File}
 
 import com.qf.charts.highcharts.{Series, SeriesType, Highchart}
+import scala.collection.mutable
 import scala.concurrent.Promise
 
 /**
@@ -49,6 +50,24 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     plots.push(t)
     plotAll()
     t
+  }
+
+  private val oldPlots = new mutable.Stack[Highchart]()
+  def clear() = {
+    oldPlots.push(plots.pop())
+    plotAll()
+  }
+  def clearAll() = {
+    while(plots.nonEmpty) clear()
+    plotAll()
+  }
+  def delete() = {
+    plots.pop()
+    plotAll()
+  }
+  def deleteAll() = {
+    while(plots.nonEmpty) delete()
+    plotAll()
   }
 
 //  val _reloadJs = scala.io.Source.fromFile(new File(getClass().getResource("/nathan-reloader.js").getPath))
@@ -105,7 +124,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     """.stripMargin
 }
 
-trait MatlabStyleHighcharts extends Matlab[Highchart] with WebPlotHighcharts {
+trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPlotHighcharts {
   import Highchart._
   override def plot(t: Highchart): Highchart = {
     val newPlot =
@@ -116,17 +135,29 @@ trait MatlabStyleHighcharts extends Matlab[Highchart] with WebPlotHighcharts {
       } else t
     super.plot(newPlot)
   }
-  def xlabel(label: String): Unit = {
+  def xAxis(label: String): Highchart = {
     val plot = plots.pop()
-    val newplot = plot.copy(xAxis = label)
-    plots.push(newplot)
+    val newPlot = plot.copy(xAxis = label)
+    super.plot(newPlot)
   }
-  def ylabel(label: String): Unit = {
+  def yAxis(label: String): Highchart = {
     val plot = plots.pop()
-    val newplot = plot.copy(yAxis = label)
-    plots.push(newplot)
+    val newPlot = plot.copy(yAxis = label)
+    super.plot(newPlot)
   }
-
+  def title(label: String): Highchart = {
+    val plot = plots.pop()
+    val newPlot = plot.copy(title = label)
+    super.plot(newPlot)  
+  }
+  // Assign names to series, if mis-matched lengths use the shorter one as a cut-off
+  def legend(labels: Iterable[String]): Highchart = {
+    val labelArray = labels.toArray
+    val plot = plots.pop()
+    val newSeries = plot.series.toSeq.zipWithIndex.map{case(s, idx) => if(idx >= labels.size) s else s.copy(name = Some(labelArray(idx)))}
+    val newPlot = plot.copy(series = newSeries)
+    super.plot(newPlot)
+  }
   def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type, format: String = "r") =
     plot(Highchart(Series(x.zip(y).toSeq, chart = chartType)))
 }

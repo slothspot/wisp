@@ -1,18 +1,7 @@
 package com.qf.charts.highcharts
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.core.Version
-import com.fasterxml.jackson.databind.module.SimpleModule
-import com.fasterxml.jackson.datatype.joda.JodaModule
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.qf.json.ScalaJsonFactory
-
-//import com.qf.data.mongo.LinkedHashMapToKeyValues
-//import com.qf.data.mongo.QProduct
-//import com.qf.data.mongo.QProductSerializer
-
 import scala.collection._
-import com.fasterxml.jackson.databind._
 
 /**
  * User: austin
@@ -23,20 +12,32 @@ import com.fasterxml.jackson.databind._
  *
  */
 object Highchart {
+  // Data
   implicit def traversableToTraversableData[X: Numeric, Y: Numeric](seq: Traversable[(X, Y)]) = seq.map{case(x, y) => Data(x, y)}
+
+  // Series
   implicit def traversableToTraversableSeries[X: Numeric, Y: Numeric](seq: Traversable[(X, Y)]) = seriesToTraversableSeries(traversableToSeries(seq))
   implicit def traversableToSeries[X: Numeric, Y: Numeric](seq: Traversable[(X, Y)]) = Series(traversableToTraversableData(seq))
   implicit def seriesToTraversableSeries(series: Series) = Seq(series)
   implicit def traversableToSomeArray(t: Traversable[Any]) = Some(t.toArray) // for axes
+
+  // Axis
   implicit def axisTitleOptionToArrayAxes(axisTitle: Option[AxisTitle]) = Some(Array(Axis(axisTitle)))
   implicit def axisToArrayAxes(axis: Axis) = Some(Array(axis))
   implicit def axesSeqToSomeAxesArray(axes: Seq[Axis]) = Some(axes.toArray)
   implicit def stringToAxisTitle(s: String) = Some(AxisTitle(s))
   implicit def stringToAxis(s: String): Option[Array[Axis]] = axisTitleOptionToArrayAxes(stringToAxisTitle(s))
+
+  // Colors
   implicit def colorToSomeColorArray(c: Color.Type) = Some(Array(c))
+
+  // Exporting
   implicit def stringToExporting(s: String) = Some(Exporting(s))
+
+  // Title
   implicit def stringToTitle(s: String) = Some(Title(text = s))
 
+  // value -> Some(value)
   implicit def optionWrap[T](value: T): Option[T] = Option(value)
 }
 

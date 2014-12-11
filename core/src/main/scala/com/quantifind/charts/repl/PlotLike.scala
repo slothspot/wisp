@@ -5,6 +5,8 @@ import unfiltered.util.Port
 import unfiltered.jetty.Http
 import com.qf.charts.PlotServer
 
+import scala.collection.mutable
+
 /**
  * User: austin
  * Date: 11/14/14
@@ -17,7 +19,7 @@ trait PlotLike[T] {
 }
 
 trait Plottable[T] extends PlotLike[T] {
-  val plots = new scala.collection.mutable.Stack[T]()
+  val plots = new mutable.Stack[T]()
 }
 
 trait WebPlot[T] extends Plottable[T] {
@@ -91,10 +93,7 @@ Chart augmenting functions:
  - xlabel: assigns a label to the x-axis of the most recent plot
  - ylabel: assign a label to the y-axis of the most recent plot
 */
-trait Matlab[T] extends PlotLike[T] {
-  def xlabel(label: String): Unit
-  def ylabel(label: String): Unit
-
+trait Hold[T] extends PlotLike[T] {
   var isHeld: Boolean = false
   def hold(): Unit = {
     isHeld = true
@@ -102,4 +101,11 @@ trait Matlab[T] extends PlotLike[T] {
   def unhold(): Unit = {
     isHeld = false
   }
+}
+
+trait Labels[T] extends PlotLike[T] {
+  def xAxis(label: String): T
+  def yAxis(label: String): T
+  def title(label: String): T
+  def legend(labels: Iterable[String]): T
 }
