@@ -47,6 +47,9 @@ Future Tasks
 * Iterable[Tuple2] 
 * Common-use-cases: ie least-squares-regression support
 * Common plots - bubble charts, geomap (highcharts? vega?)
+* Documentation + Testing
+* Highcharts coverage percentage?
+* Consistent naming: Highchart vs Highcharts
 
 
 Highcharts
