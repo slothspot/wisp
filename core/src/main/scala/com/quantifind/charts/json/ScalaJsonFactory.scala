@@ -276,7 +276,7 @@ object ScalaJsonFactory extends java.io.Serializable {
         !(JsonToken.FIELD_NAME.equals(tok) && parser.getCurrentName.equals(fieldName))
     }
     if (afterDrop.hasNext) {
-      afterDrop.next() //realy move the iterator
+      afterDrop.next() //really move the iterator
       val tok = parser.nextValue()
       val t = if (tok.equals(JsonToken.START_OBJECT) || tok.equals(JsonToken.START_ARRAY)) {
         readJson(afterDrop, tok)

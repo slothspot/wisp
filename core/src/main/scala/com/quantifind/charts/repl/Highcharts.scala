@@ -20,42 +20,42 @@ object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyl
 
   def area[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.area, "r")
+    xyToSeries(xr, yr, SeriesType.area)
   }
 
   def areaspline[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.areaspline, "r")
+    xyToSeries(xr, yr, SeriesType.areaspline)
   }
 
   def bar[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.bar, "r")
+    xyToSeries(xr, yr, SeriesType.bar)
   }
 
   def column[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.column, "r")
+    xyToSeries(xr, yr, SeriesType.column)
   }
 
   def line[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.line, "r")
+    xyToSeries(xr, yr, SeriesType.line)
   }
 
   def pie[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.pie, "r")
+    xyToSeries(xr, yr, SeriesType.pie)
   }
 
   def scatter[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.scatter, "r")
+    xyToSeries(xr, yr, SeriesType.scatter)
   }
 
   def spline[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
-    xyToSeries(xr, yr, SeriesType.spline, "r")
+    xyToSeries(xr, yr, SeriesType.spline)
   }
 }
 
