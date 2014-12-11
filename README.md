@@ -35,4 +35,22 @@ res0: com.qf.charts.highcharts.Highchart = Highchart(List(Series(Vector(Data(1,1
 scala>
 ```
 
+Future Tasks
+============
+
+* Undo / Redo
+* Vega, D3, JFreeChart support
+* Open-Source!
+* Maven Managed Dependency
+* Local mode refresh code
+* Zoom
+* Iterable[Tuple2] 
+* Common-use-cases: ie least-squares-regression support
+* Common plots - bubble charts, geomap (highcharts? vega?)
+
+
+Highcharts
+==========
+
+[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use. Contact highcharts directly for commercial licensing.
 
