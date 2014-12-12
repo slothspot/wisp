@@ -14,7 +14,7 @@ import com.qf.charts.repl.Highcharts._
 
 object LeastSquareRegression {
 
-  def leastSquareRegression(xSeq: Seq[Double], ySeq: Seq[Double]) = {
+  def leastSquareRegression(ySeq: Seq[Double], xSeq: Seq[Double]) = {
     // regress the data
     val target: Array[Double]            = ySeq.toArray
     val predictor: Array[Array[Double]]  = xSeq.map(Array(_)).toArray
