@@ -23,17 +23,17 @@ object LeastSquareRegression {
       mod.newSampleData(target, predictor)
       mod
     }
-    val params = model.estimateRegressionParameters
-    val intercept = params(0)
-    val slope = params(1)
+    val params= model.estimateRegressionParameters
+    val b  = params(0)
+    val m = params(1)
     val residualSS = model.calculateResidualSumOfSquares()
     
     // make the plot 
     val xMin = xSeq.min
     val xMax = xSeq.max
     val data = Series(xSeq.zip(ySeq).map{case (x,y) => Data(x,y)}, name = "Datapoints", chart = "scatter")
-    val line = Series(List(Data(xMin, intercept + xMin * slope), Data(xMax, intercept + xMax * slope)), 
-      color = data.color, name = "Regression line " + f"$intercept%1.5f" + " + " + f"$slope%1.5f" + " * x") 
+    val line = Series(List(Data(xMin, b + xMin * m, Data(xMax, b + xMax * m)), 
+      color = data.color, name = "Regression line " + f"$b%1.5f" + " + " + f"$m%1.5f" + " * x"))
     plot(Highchart(List(data,line), Some(Title("Regression with residual sum of squares of " + f"$residualSS%1.5f"))))
   }
 }

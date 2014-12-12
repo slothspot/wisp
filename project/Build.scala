@@ -35,7 +35,7 @@ object PoppyBuild extends Build {
 			"net.databinder" %% "unfiltered-jetty" % "0.6.7",
 			"net.databinder" %% "unfiltered-json" % "0.6.7",
 			"com.quantifind" %% "sumac" % "0.3.0",
-      "org.apache.commons" % "commons-math3" % "3.1"
+                        "org.apache.commons" % "commons-math3" % "3.1"
 		)
 	)
 }
