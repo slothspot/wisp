@@ -19,7 +19,7 @@ trait PlotLike[T] {
 }
 
 trait Plottable[T] extends PlotLike[T] {
-  val plots = new mutable.Stack[T]()
+  var plots = List[T]()
 }
 
 trait WebPlot[T] extends Plottable[T] {

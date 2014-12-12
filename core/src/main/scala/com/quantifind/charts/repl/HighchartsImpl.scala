@@ -47,14 +47,39 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
   override def plot(t: Highchart): Highchart = {
     super.plot(t)
-    plots.push(t)
+    plots = t +: plots
+    undoStack.push(plots)
     plotAll()
     t
   }
 
+  // TODO - move into PlotLike / Plottable api? its own trait?
+
+  // Heavy handed approach to undo / redo - maintain entire state in stack
+  private val undoStack = new mutable.Stack[List[Highchart]]()
+  private val redoStack = new mutable.Stack[List[Highchart]]()
+
+  def undo() = {
+    if(undoStack.nonEmpty) {
+      redoStack.push(undoStack.pop())
+      plots = undoStack.head
+      plotAll()
+    }
+  }
+
+  def redo = {
+    if(redoStack.nonEmpty) {
+      undoStack.push(redoStack.pop())
+      plots = undoStack.head
+      plotAll()
+    }
+  }
+
+  // Clear hides elements, delete actually deletes them. Should we have both? Clear from bottom?
   private val oldPlots = new mutable.Stack[Highchart]()
   def clear() = {
-    oldPlots.push(plots.pop())
+    oldPlots.push(plots.head)
+    plots = plots.tail
     plotAll()
   }
   def clearAll() = {
@@ -62,7 +87,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     plotAll()
   }
   def delete() = {
-    plots.pop()
+    plots = plots.tail
     plotAll()
   }
   def deleteAll() = {
@@ -129,31 +154,36 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
   override def plot(t: Highchart): Highchart = {
     val newPlot =
       if(isHeld && plots.nonEmpty) {
-        val oldplot = plots.pop()
+        val oldplot = plots.head
+        plots = plots.tail
         // Throws away things from t besides the series!
         oldplot.copy(series = oldplot.series ++ t.series)
       } else t
     super.plot(newPlot)
   }
   def xAxis(label: String): Highchart = {
-    val plot = plots.pop()
+    val plot = plots.head
+    plots = plots.tail
     val newPlot = plot.copy(xAxis = label)
     super.plot(newPlot)
   }
   def yAxis(label: String): Highchart = {
-    val plot = plots.pop()
+    val plot = plots.head
+    plots = plots.tail
     val newPlot = plot.copy(yAxis = label)
     super.plot(newPlot)
   }
   def title(label: String): Highchart = {
-    val plot = plots.pop()
+    val plot = plots.head
+    plots = plots.tail
     val newPlot = plot.copy(title = label)
     super.plot(newPlot)  
   }
   // Assign names to series, if mis-matched lengths use the shorter one as a cut-off
   def legend(labels: Iterable[String]): Highchart = {
     val labelArray = labels.toArray
-    val plot = plots.pop()
+    val plot = plots.head
+    plots = plots.tail
     val newSeries = plot.series.toSeq.zipWithIndex.map{case(s, idx) => if(idx >= labels.size) s else s.copy(name = Some(labelArray(idx)))}
     val newPlot = plot.copy(series = newSeries)
     super.plot(newPlot)
