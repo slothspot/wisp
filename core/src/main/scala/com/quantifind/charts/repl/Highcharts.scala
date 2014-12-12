@@ -1,6 +1,7 @@
 package com.qf.charts.repl
 
 import com.qf.charts.highcharts.{SeriesType}
+import com.qf.charts.highcharts.LeastSquareRegression._
 
 /**
 * User: austin
@@ -46,6 +47,12 @@ object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyl
   def pie[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
     xyToSeries(xr, yr, SeriesType.pie)
+  }
+
+  def regression[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C,D]) = {
+    def numericToDouble[X](x: X)(implicit ev: Numeric[X]): Double = ev.toDouble(x)
+    val (xr, yr) = xy.toIterables
+    leastSquareRegression(xr.toSeq.map(numericToDouble(_)), yr.toSeq.map(numericToDouble(_)))
   }
 
   def scatter[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
