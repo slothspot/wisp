@@ -32,8 +32,11 @@ object LeastSquareRegression {
     val xMin = xSeq.min
     val xMax = xSeq.max
     val data = Series(xSeq.zip(ySeq).map{case (x,y) => Data(x,y)}, name = "Datapoints", chart = "scatter")
-    val line = Series(List(Data(xMin, b + xMin * m, Data(xMax, b + xMax * m)), 
-      color = data.color, name = "Regression line " + f"$b%1.5f" + " + " + f"$m%1.5f" + " * x"))
+    val line = Series(
+      data = List(Data(xMin, b + xMin * m), Data(xMax, b + xMax * m)),
+      color = data.color,
+      name = "Regression line " + f"$b%1.5f" + " + " + f"$m%1.5f" + " * x"
+    )
     plot(Highchart(List(data,line), Some(Title("Regression with residual sum of squares of " + f"$residualSS%1.5f"))))
   }
 }
