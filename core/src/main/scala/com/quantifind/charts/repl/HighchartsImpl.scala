@@ -158,6 +158,6 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
     val newPlot = plot.copy(series = newSeries)
     super.plot(newPlot)
   }
-  def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type, format: String = "r") =
+  def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type) =
     plot(Highchart(Series(x.zip(y).toSeq, chart = chartType)))
 }
