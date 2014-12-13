@@ -46,6 +46,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     println(s"Output written to $link (CMD + Click link in Mac OSX).")
   }
 
+  // TODO, refactor flow code
   override def plot(t: Highchart): Highchart = {
     super.plot(t)
     plots = t +: plots
@@ -108,7 +109,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
       |<html>
       |  <head>
       |    <title>
-      |      Chart
+      |      Highchart
       |    </title>
       |    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       |    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
