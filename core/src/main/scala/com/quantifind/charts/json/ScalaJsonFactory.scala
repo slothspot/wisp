@@ -1,4 +1,4 @@
-package com.qf.json
+package com.quantifind.json
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core._

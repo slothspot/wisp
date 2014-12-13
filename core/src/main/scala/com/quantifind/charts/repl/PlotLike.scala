@@ -1,9 +1,9 @@
-package com.qf.charts.repl
+package com.quantifind.charts.repl
 
 import java.io.File
 import unfiltered.util.Port
 import unfiltered.jetty.Http
-import com.qf.charts.PlotServer
+import com.quantifind.charts.PlotServer
 
 import scala.collection.mutable
 

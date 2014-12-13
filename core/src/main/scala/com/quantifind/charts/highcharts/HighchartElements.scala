@@ -1,4 +1,4 @@
-package com.qf.charts.highcharts
+package com.quantifind.charts.highcharts
 
 import scala.collection.mutable
 

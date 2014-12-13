@@ -1,8 +1,8 @@
-package com.qf.charts
+package com.quantifind.charts
 
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.FunSuite
-import com.qf.charts.highcharts._
+import com.quantifind.charts.highcharts._
 import Highchart._
 
 /**

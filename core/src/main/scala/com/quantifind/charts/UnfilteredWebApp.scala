@@ -1,9 +1,9 @@
-package com.qf.charts
+package com.quantifind.charts
 
 import unfiltered.util.Port
 //import com.typesafe.config.ConfigFactory
 import com.quantifind.sumac.{ArgMain, FieldArgs}
-import com.qf.charts.UnfilteredWebApp.Arguments
+import com.quantifind.charts.UnfilteredWebApp.Arguments
 
 /**
  * build up a little web app that serves static files from the resource directory

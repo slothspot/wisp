@@ -1,7 +1,6 @@
-package com.qf.charts.highcharts
+package com.quantifind.charts.highcharts
 
-import com.qf.json.ScalaJsonFactory
-import com.quantifind.charts.highcharts.PlotOptions
+import com.quantifind.json.ScalaJsonFactory
 import scala.collection._
 
 /**

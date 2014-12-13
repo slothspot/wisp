@@ -1,4 +1,4 @@
-package com.qf.charts.repl
+package com.quantifind.charts.repl
 
 /**
  * User: austin

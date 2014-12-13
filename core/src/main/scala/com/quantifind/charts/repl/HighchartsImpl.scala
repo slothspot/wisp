@@ -1,8 +1,8 @@
-package com.qf.charts.repl
+package com.quantifind.charts.repl
 
 import java.io.{PrintWriter, File}
 
-import com.qf.charts.highcharts.{Series, SeriesType, Highchart}
+import com.quantifind.charts.highcharts.{Series, SeriesType, Highchart}
 import com.quantifind.charts.highcharts._
 import scala.collection.mutable
 import scala.concurrent.Promise

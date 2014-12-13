@@ -1,7 +1,7 @@
-package com.qf.charts.repl
+package com.quantifind.charts.repl
 
-import com.qf.charts.highcharts.{SeriesType}
-import com.qf.charts.highcharts.LeastSquareRegression
+import com.quantifind.charts.highcharts.{SeriesType}
+import com.quantifind.charts.highcharts.LeastSquareRegression
 
 /**
 * User: austin

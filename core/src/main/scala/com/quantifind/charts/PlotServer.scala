@@ -1,4 +1,4 @@
-package com.qf.charts
+package com.quantifind.charts
 
 import scala.concurrent.{Await, Promise}
 import unfiltered.request._
