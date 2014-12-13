@@ -44,7 +44,7 @@ Future Tasks
 * Maven Managed Dependency
 * Local mode refresh code
 * Zoom
-* ~~Iterable[Tuple2] ~~
+* ~~Iterable[Tuple2]~~
 * Common-use-cases: ie ~~least-squares-regression support~~
 * Common plots - bubble charts, geomap (highcharts? vega?)
 * Documentation + Testing
