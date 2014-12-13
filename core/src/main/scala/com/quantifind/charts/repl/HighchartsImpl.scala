@@ -3,6 +3,7 @@ package com.qf.charts.repl
 import java.io.{PrintWriter, File}
 
 import com.qf.charts.highcharts.{Series, SeriesType, Highchart}
+import com.quantifind.charts.highcharts._
 import scala.collection.mutable
 import scala.concurrent.Promise
 
@@ -62,7 +63,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
   def undo() = {
     if(undoStack.nonEmpty) {
       redoStack.push(undoStack.pop())
-      plots = undoStack.head
+      plots = if(undoStack.nonEmpty) undoStack.head else List[Highchart]()
       plotAll()
     }
   }
@@ -190,4 +191,11 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
   }
   def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type) =
     plot(Highchart(Series(x.zip(y).toSeq, chart = chartType)))
+
+  def stack(stackType: Stacking.Type): Highchart = {
+    val plot = plots.head
+    plots = plots.tail
+    val newPlot = plot.copy(plotOptions = Some(PlotOptions(series = PlotOptionKey(stacking = stackType))))
+    super.plot(newPlot)
+  }
 }

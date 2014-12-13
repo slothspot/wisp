@@ -50,6 +50,10 @@ Future Tasks
 * Documentation + Testing
 * Highcharts coverage percentage?
 * Consistent naming: Highchart vs Highcharts?
+* Highcharts modules: e.g. Heatmap, Candlestick, Errorbars, Boxplot
+* Increased support for PlotOptions
+* Fix package names qf -> quantifind
+
 
 
 Highcharts
