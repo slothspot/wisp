@@ -1,7 +1,7 @@
 import sbt._
 import Keys._
 
-object PoppyBuild extends Build {
+object WispBuild extends Build {
 
   def sharedSettings = Defaults.defaultSettings ++ Seq(
     version := "0.1-SNAPSHOT",
@@ -20,10 +20,10 @@ object PoppyBuild extends Build {
     )
   )
 
-	lazy val poppy = Project("poppy", file("core"), settings = poppySettings)
+	lazy val wisp = Project("wisp", file("core"), settings = wispSettings)
 
-	def poppySettings = sharedSettings ++ Seq(
-		name := "Poppy",
+	def wispSettings = sharedSettings ++ Seq(
+		name := "Wisp",
 		libraryDependencies ++= Seq(
 		  // Do we need all these jackson imports?
 			"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.2.2",
