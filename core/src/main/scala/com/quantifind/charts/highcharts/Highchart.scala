@@ -1,6 +1,7 @@
 package com.qf.charts.highcharts
 
 import com.qf.json.ScalaJsonFactory
+import com.quantifind.charts.highcharts.PlotOptions
 import scala.collection._
 
 /**
@@ -99,7 +100,7 @@ case class Highchart(
                       credits: Option[Credits] = Some(Credits()),
                       exporting: Option[Exporting] = Some(Exporting()),
                       legend: Option[Legend] = None,
-                      // plotOptions
+                      plotOptions: Option[PlotOptions] = None,
                       subtitle: Option[Title] = None,
                       setTurboThreshold: Boolean = true,
                       tooltip: Option[ToolTip] = None,
@@ -156,7 +157,7 @@ case class Highchart(
         hckTraversableToServiceFormat(series) ++
         Seq(xAxis, yAxis).flatMap(optionArrayAxisToServiceFormat) ++
         optionArrayColorToServiceFormat(colorWrapper) ++
-        Seq(chart, title, exporting, credits, legend, tooltip, subtitle).flatMap(optionToServiceFormat)
+        Seq(chart, title, exporting, credits, legend, plotOptions, tooltip, subtitle).flatMap(optionToServiceFormat)
   }
 
   def toServiceFormat: (String, Map[String, Any]) = {
