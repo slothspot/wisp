@@ -94,7 +94,7 @@ object HighchartKey {
 case class Highchart(
                       series: Traversable[Series],
                       title: Option[Title] = Some(Title()),
-                      chart: Option[Chart] = None,
+                      chart: Option[Chart] = Some(Chart()),
                       colors: Option[Array[Color.Type]] = None,
                       credits: Option[Credits] = Some(Credits()),
                       exporting: Option[Exporting] = Some(Exporting()),
@@ -193,7 +193,7 @@ case class Title(
 
 case class Chart(
                   // todo, many other chart options
-                  zoomType: Option[Zoom.Type] = None
+                  zoomType: Option[Zoom.Type] = Some(Zoom.xy)
                   ) extends HighchartKey("chart") {
   def toServiceFormat = Map(
     "zoomType" -> zoomType
