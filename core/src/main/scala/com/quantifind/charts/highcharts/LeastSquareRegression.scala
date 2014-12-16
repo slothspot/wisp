@@ -26,7 +26,8 @@ object LeastSquareRegression {
     val params= model.estimateRegressionParameters
     val b  = params(0)
     val m = params(1)
-    val residualSS = model.calculateResidualSumOfSquares()
+    val residualRSquared = model.calculateAdjustedRSquared()
+
     
     // make the plot 
     val xMin = xSeq.min
@@ -35,8 +36,8 @@ object LeastSquareRegression {
     val line = Series(
       data = List(Data(xMin, b + xMin * m), Data(xMax, b + xMax * m)),
       color = data.color,
-      name = "Regression line " + f"$b%1.5f" + " + " + f"$m%1.5f" + " * x"
+      name = "y = " + f"$b%1.5f" + " + " + f"$m%1.5f" + " * x"
     )
-    plot(Highchart(List(data,line), Some(Title("Regression with residual sum of squares of " + f"$residualSS%1.5f"))))
+    plot(Highchart(List(data,line), Some(Title("r² = " + f"$residualRSquared%1.5f"))))
   }
 }
