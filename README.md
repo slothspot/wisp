@@ -1,9 +1,20 @@
-Wisp Is Scala Plotting
-================
+**Wisp** : **W**isp **I**s **S**cala **P**lotting is a console-centric plotting library for scala.
+It focuses on web-based tools, and strives to bring the power and flexibility of web-based plotting
+tools to the scala console, while preserving an at-your-finger-tips feel readily found in matlab, R, and many other tools.
 
-A wrapper around Highcharts with future support for {Vega, D3, ...}
+Todo: build status links
 
-Now with repl support!
+Todo: logo
+
+Todo: Maven central
+
+It is available on maven central. The last stable release is `0.0.1`. An sbt dependency would look like:
+
+    "com.quantifind" %% "wisp" % "0.0.1"
+
+Todo: Integration with 3-rd party libraries: Highcharts, vega, etc. etc.?
+
+Example:
 
 ![Line Chart](https://github.com/quantifind/scala-highcharts/blob/master/images/line.png)
 
@@ -35,10 +46,38 @@ res0: com.qf.charts.highcharts.Highchart = Highchart(List(Series(Vector(Data(1,1
 scala>
 ```
 
-Highcharts
-==========
+## Usage
+
+Todo: Video
+
+Todo: charts.Highchart
+
+Todo: implicits
+
+Todo: repl.Highcharts._
+
+## Builtin Help
+
+Todo: repl help
+
+## More Info
+
+todo: wiki
+
+Wisp is open source, and we hope to get involvement from the community.  We'd love to get some pull requests.  Also, even if you don't
+have a fix, feel free to report bugs or just request new features through the [github issue tracker](https://github.com/quantifind/wisp/issues?state=open).
+
+## Highcharts
 
 These library includes links to [Highcharts](http://www.highcharts.com/). It does not include a copy of the source code, and does not modify the source code.
 
 [Highcharts](http://www.highcharts.com/) is available freely for non-commercial use under [Creative Common NonCommercial 3.0](http://creativecommons.org/licenses/by-nc/3.0/). It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial). 
+
+## Contributing
+
+Wisp is released under the Apache License and we **welcome any contributions** within this license. Any pull request is welcome and will be reviewed and merged as quickly as possible.
+
+Because this open source project is released by [Quantifind](http://www.quantifind.com) as a company, if you want to submit a pull request, you will have to sign the following simple contributors agreement:
+- If you are an individual, please sign [this contributors agreement](https://docs.google.com/a/quantifind.com/document/d/1RS7qEjq3cCmJ1665UhoCMK8541Ms7KyU3kVFoO4CR_I/) and send it back to contributors@quantifind.com
+- If you are contributing changes that you did as part of your work, please sign [this contributors agreement](https://docs.google.com/a/quantifind.com/document/d/1kNwLT4qG3G0Ct2mEuNdBGmKDYuApN1CpQtZF8TSVTjE/) and send it back to contributors@quantifind.com
 
