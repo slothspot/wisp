@@ -1,6 +1,6 @@
 **Wisp** : **W**isp **I**s **S**cala **P**lotting is a console-centric plotting library for scala.
-It focuses on web-based tools, and strives to bring the power and flexibility of web-based plotting
-tools to the scala console, while preserving an at-your-finger-tips feel readily found in matlab, R, and many other tools.
+It focuses on existing web-based plotting libraries, and strives to bring the power and flexibility of web-based plotting
+tools to the scala console, while preserving an at-your-finger-tips feel readily found in matlab, R, and many other languages.
 
 Todo: build status links
 
