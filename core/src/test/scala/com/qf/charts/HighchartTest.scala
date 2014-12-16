@@ -18,11 +18,11 @@ class HighchartTest extends FunSuite with ShouldMatchers {
 
     hc should be ("highcharts",
       Map(
-        "series" -> List(Map("data" -> List(Map("x" -> 1, "y" -> 2)))),
+        "series" -> List(Map("data" -> List(Map("x" -> 1, "y" -> 2)), "type" -> "line")),
         "chart" -> Map("zoomType" -> "xy"),
         "exporting" -> Map("filename" -> "chart"),
         "plotOptions" -> Map(
-          "line" -> Map("turboThreshold" -> "Infinity--")
+          "line" -> Map("turboThreshold" -> 0)
         ),
         "credits" -> Map(
           "href" -> "",

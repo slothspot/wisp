@@ -4,6 +4,10 @@ package com.quantifind.charts.highcharts
  * User: austin
  * Date: 12/12/14
  */
+object PlotOptions {
+  val name = "plotOptions"
+}
+
 // These are overlapping options, but are well over 22 options.
 case class PlotOptions(
                         area: Option[PlotOptionKey] = None,
@@ -27,7 +31,7 @@ case class PlotOptions(
                         solidgauge: Option[PlotOptionKey] = None,
                         spline: Option[PlotOptionKey] = None,
                         waterfall: Option[PlotOptionKey] = None,
-                        var __name: String = "plotOptions"
+                        var __name: String = PlotOptions.name
                         ) extends HighchartKey(__name) {
 
   def toServiceFormat: Map[String, Any] = {

@@ -99,7 +99,7 @@ case class Highchart(
                       credits: Option[Credits] = Some(Credits()),
                       exporting: Option[Exporting] = Some(Exporting()),
                       legend: Option[Legend] = None,
-                      plotOptions: Option[PlotOptions] = None,
+                      plotOptions: Option[PlotOptions] = Some(PlotOptions()),
                       subtitle: Option[Title] = None,
                       setTurboThreshold: Boolean = true,
                       tooltip: Option[ToolTip] = None,
@@ -114,14 +114,22 @@ case class Highchart(
   def jsonMap: Map[String, Any] = {
     if(series.size == 0) System.err.println("Tried to create a chart with no series")
 
-    val turboOutput =
+    // Because we want to default to turboThreshold off (0) we control it as a boolean at the top-most level
+    // As otherwise it is a per-type plotOption
+    val turboOutput: Map[String, Any] =
       if(setTurboThreshold) {
-        val allPlotsTurbo = series.filter(_.chart != Some(SeriesType.pie)).flatMap(_.chart).map { s =>
-          s -> Map("turboThreshold" -> "Infinity--")
+        series.filter(_.chart != Some(SeriesType.pie)).flatMap(_.chart).map { s =>
+          s -> Map("turboThreshold" -> 0)
         }.toMap
-
-        Map("plotOptions" -> allPlotsTurbo)
       } else Map.empty[String, Any]
+
+    // Todo: can we do better?
+    // Check if it exists
+    val finalPlotOption = if(plotOptions.isDefined) {
+      Map(PlotOptions.name -> {optionToServiceFormat(plotOptions)(PlotOptions.name).asInstanceOf[Map[String, Any]] ++ turboOutput})
+    } else {
+      Map(PlotOptions.name -> turboOutput)
+    }
 
     val colorWrapper = (colors, yAxis) match {
       case (Some(c), _) if c.size > 0 => colors
@@ -152,11 +160,11 @@ case class Highchart(
     // Axis defaults to yAxis, rename xAxes
     xAxis.map(_.foreach(_.__name = "xAxis"))
 
-      turboOutput ++
+      finalPlotOption ++
         hckTraversableToServiceFormat(series) ++
         Seq(xAxis, yAxis).flatMap(optionArrayAxisToServiceFormat) ++
         optionArrayColorToServiceFormat(colorWrapper) ++
-        Seq(chart, title, exporting, credits, legend, plotOptions, tooltip, subtitle).flatMap(optionToServiceFormat)
+        Seq(chart, title, exporting, credits, legend, tooltip, subtitle).flatMap(optionToServiceFormat)
   }
 
   def toServiceFormat: (String, Map[String, Any]) = {
@@ -311,7 +319,7 @@ case class Series(
                     index: Option[Int] = None,
                     legendIndex: Option[Int] = None,
                     name: Option[String] = None,
-                    chart: Option[SeriesType.Type] = None,
+                    chart: Option[SeriesType.Type] = Some(SeriesType.line), // for turbo threshold default
                     visible: Option[Boolean] = None,
                     color: Option[Color.Type] = None,
                     var xAxis: Option[String] = None,
