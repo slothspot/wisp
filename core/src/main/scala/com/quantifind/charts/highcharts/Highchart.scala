@@ -116,7 +116,7 @@ case class Highchart(
 
     val turboOutput =
       if(setTurboThreshold) {
-        val allPlotsTurbo = {Seq("line") ++ series.flatMap(_.chart)}.map { s =>
+        val allPlotsTurbo = series.filter(_.chart != Some(SeriesType.pie)).flatMap(_.chart).map { s =>
           s -> Map("turboThreshold" -> "Infinity--")
         }.toMap
 

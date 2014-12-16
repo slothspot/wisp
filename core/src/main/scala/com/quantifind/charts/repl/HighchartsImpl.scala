@@ -70,8 +70,8 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
       |    </title>
       |    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       |    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-      |    <script type="text/javascript" src="http://code.highcharts.com/3.0.6/highcharts.js"></script>
-      |    <script type="text/javascript" src="http://code.highcharts.com/3.0.6/modules/exporting.js"></script>
+      |    <script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts.js"></script>
+      |    <script type="text/javascript" src="http://code.highcharts.com/4.0.4/modules/exporting.js"></script>
       |
     """.stripMargin
 
