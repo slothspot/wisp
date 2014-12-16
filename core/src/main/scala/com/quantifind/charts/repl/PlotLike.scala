@@ -20,6 +20,48 @@ trait PlotLike[T] {
 
 trait Plottable[T] extends PlotLike[T] {
   var plots = List[T]()
+
+  def plotAll()
+
+  // Heavy handed approach to undo / redo - maintain entire state in stack
+  protected val oldPlots = new mutable.Stack[T]()
+  protected val undoStack = new mutable.Stack[List[T]]()
+  protected val redoStack = new mutable.Stack[List[T]]()
+
+  def undo() = {
+    if(undoStack.nonEmpty) {
+      redoStack.push(undoStack.pop())
+      plots = if(undoStack.nonEmpty) undoStack.head else List[T]()
+      plotAll()
+    }
+  }
+
+  def redo = {
+    if(redoStack.nonEmpty) {
+      undoStack.push(redoStack.pop())
+      plots = undoStack.head
+      plotAll()
+    }
+  }
+
+  // Clear hides elements, delete actually deletes them. Should we have both? Clear from bottom?
+  def clear() = {
+    oldPlots.push(plots.head)
+    plots = plots.tail
+    plotAll()
+  }
+  def clearAll() = {
+    while(plots.nonEmpty) clear()
+    plotAll()
+  }
+  def delete() = {
+    plots = plots.tail
+    plotAll()
+  }
+  def deleteAll() = {
+    while(plots.nonEmpty) delete()
+    plotAll()
+  }
 }
 
 trait WebPlot[T] extends Plottable[T] {

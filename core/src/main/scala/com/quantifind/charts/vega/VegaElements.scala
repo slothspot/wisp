@@ -47,7 +47,7 @@ object ScaleType {
 
 trait ScaleRange
 object ScaleRange {
-  type Type = Any // String or Array or DataRef
+  type Type = String // Any // String or Array or DataRef
 }
 
 object ScaleRangeLiteral extends ScaleRange {

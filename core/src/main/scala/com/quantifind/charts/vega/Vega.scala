@@ -48,13 +48,14 @@ case class Vega(
                  ) {
 
   def toMap: Map[String, Any] = {
+    val padMap = if(padding.nonEmpty) Seq(padding.map(_.toMap)).flatMap(x => x).reduce(_ ++ _) else Map()
     Map(
       "name" -> name,
       "width" -> width,
       "height" -> height,
       "viewport" -> viewport
     ).flatMap(VegaKey.flatten) ++
-      Seq(padding.map(_.toMap)).flatMap(x => x).reduce(_ ++ _) ++
+      padMap ++
       Map(
         "data" -> data,
         "scales" -> scales,
@@ -300,7 +301,7 @@ case class Properties(
 }
 
 case class ValueRef (
-                      `value`: Option[Any] = None,  // change name?
+                      `value`: Option[String] = None,  // change name?
                       field: Option[String] = None, // String Object
                       group: Option[String] = None, // String Boolean
                       scale: Option[String] = None, // String Object
@@ -309,6 +310,10 @@ case class ValueRef (
                       band: Option[Boolean] = None,
                       fill: Option[Fill] = None
                       ) {
+
+  println("Initialized ValueRef with value: " + `value`)
+
+//  val underlyingValue
 
   def toMap =
     Map(

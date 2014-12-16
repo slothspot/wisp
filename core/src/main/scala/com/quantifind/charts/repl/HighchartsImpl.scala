@@ -4,7 +4,6 @@ import java.io.{PrintWriter, File}
 
 import com.quantifind.charts.highcharts.{Series, SeriesType, Highchart}
 import com.quantifind.charts.highcharts._
-import scala.collection.mutable
 import scala.concurrent.Promise
 
 /**
@@ -53,48 +52,6 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     undoStack.push(plots)
     plotAll()
     t
-  }
-
-  // TODO - move into PlotLike / Plottable api? its own trait?
-
-  // Heavy handed approach to undo / redo - maintain entire state in stack
-  private val undoStack = new mutable.Stack[List[Highchart]]()
-  private val redoStack = new mutable.Stack[List[Highchart]]()
-
-  def undo() = {
-    if(undoStack.nonEmpty) {
-      redoStack.push(undoStack.pop())
-      plots = if(undoStack.nonEmpty) undoStack.head else List[Highchart]()
-      plotAll()
-    }
-  }
-
-  def redo = {
-    if(redoStack.nonEmpty) {
-      undoStack.push(redoStack.pop())
-      plots = undoStack.head
-      plotAll()
-    }
-  }
-
-  // Clear hides elements, delete actually deletes them. Should we have both? Clear from bottom?
-  private val oldPlots = new mutable.Stack[Highchart]()
-  def clear() = {
-    oldPlots.push(plots.head)
-    plots = plots.tail
-    plotAll()
-  }
-  def clearAll() = {
-    while(plots.nonEmpty) clear()
-    plotAll()
-  }
-  def delete() = {
-    plots = plots.tail
-    plotAll()
-  }
-  def deleteAll() = {
-    while(plots.nonEmpty) delete()
-    plotAll()
   }
 
 //  val _reloadJs = scala.io.Source.fromFile(new File(getClass().getResource("/nathan-reloader.js").getPath))
