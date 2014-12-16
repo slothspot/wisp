@@ -60,5 +60,5 @@ Future Tasks
 Highcharts
 ==========
 
-[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use. Contact highcharts directly for commercial licensing.
+[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use. It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial).
 
