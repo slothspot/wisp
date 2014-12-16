@@ -150,7 +150,7 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
   def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type) =
     plot(Highchart(Series(x.zip(y).toSeq, chart = chartType)))
 
-  def stack(stackType: Stacking.Type): Highchart = {
+  def stack(stackType: Stacking.Type = Stacking.normal): Highchart = {
     val plot = plots.head
     plots = plots.tail
     val newPlot = plot.copy(plotOptions = Some(PlotOptions(series = PlotOptionKey(stacking = stackType))))
