@@ -38,5 +38,7 @@ scala>
 Highcharts
 ==========
 
-[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use. It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial).
+These library includes links to [Highcharts](http://www.highcharts.com/). It does not include a copy of the source code, and does not modify the source code.
+
+[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use under [Creative Common NonCommercial 3.0](http://creativecommons.org/licenses/by-nc/3.0/). It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial). 
 
