@@ -35,28 +35,6 @@ res0: com.qf.charts.highcharts.Highchart = Highchart(List(Series(Vector(Data(1,1
 scala>
 ```
 
-Future Tasks
-============
-
-* ~~Undo / Redo~~
-* Vega, D3, JFreeChart support
-* Open-Source!
-* Maven Managed Dependency
-* Local mode refresh code
-* Zoom
-* ~~Iterable[Tuple2]~~
-* Common-use-cases: ie ~~least-squares-regression support~~
-* Common plots - bubble charts, geomap (highcharts? vega?)
-* Documentation + Testing
-* Highcharts coverage percentage?
-* Consistent naming: Highchart vs Highcharts?
-* Highcharts modules: e.g. Heatmap, Candlestick, Errorbars, Boxplot
-* Increased support for PlotOptions
-* ~~Fix package names qf -> quantifind~~
-* Compare to scala-chart, scalaplot, bokeh (ascii output is an awesome idea!)
-
-
-
 Highcharts
 ==========
 
