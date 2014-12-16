@@ -14,7 +14,9 @@ It is available on maven central. The last stable release is `0.0.1`. An sbt dep
 
 Todo: Integration with 3-rd party libraries: Highcharts, vega, etc. etc.?
 
-Example:
+## Usage
+
+Full usage can be found on the [wiki](https://github.com/quantifind/wisp/wiki), but by means of example:
 
 ![Line Chart](https://github.com/quantifind/scala-highcharts/blob/master/images/line.png)
 
@@ -46,23 +48,13 @@ res0: com.qf.charts.highcharts.Highchart = Highchart(List(Series(Vector(Data(1,1
 scala>
 ```
 
-## Usage
-
-Todo: Video
-
-Todo: charts.Highchart
-
-Todo: implicits
-
-Todo: repl.Highcharts._
-
 ## Builtin Help
 
-Todo: repl help
+Todo: repl help ? Reflect method names?
 
 ## More Info
 
-todo: wiki
+Greater detail can be found on the [wiki](https://github.com/quantifind/wisp/wiki)
 
 Wisp is open source, and we hope to get involvement from the community.  We'd love to get some pull requests.  Also, even if you don't
 have a fix, feel free to report bugs or just request new features through the [github issue tracker](https://github.com/quantifind/wisp/issues?state=open).
