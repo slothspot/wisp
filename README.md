@@ -66,9 +66,6 @@ have a fix, feel free to report bugs or just request new features through the [g
 
 We would like to thank all of the engineers who helped make this possible
 
-<style type="text/css">
-table {border: none;}
-</style>
 <table border="0">
   <tr>
     <td><a href=https://github.com/ajberglund >Andrew Berglund</a></td>
