@@ -55,6 +55,8 @@ Todo: repl help ? Reflect method names?
 
 ## More Info
 
+[Watch the introductory video](https://www.youtube.com/watch?v=LZH9rCEP-6w)
+
 Greater detail can be found on the [wiki](https://github.com/quantifind/wisp/wiki)
 
 Wisp is open source, and we hope to get involvement from the community.  We'd love to get some pull requests.  Also, even if you don't
