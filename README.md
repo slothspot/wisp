@@ -2,19 +2,20 @@
 It focuses on existing web-based plotting libraries, and strives to bring the power and flexibility of web-based plotting
 tools to the scala console, while preserving an at-your-finger-tips feel readily found in matlab, R, and many other languages.
 
-Todo: build status links
+<!---[![Build Status](https://travis-ci.org/quantifind/Wisp.svg?branch=master)](https://travis-ci.org/quantifind/Wisp)--->
+<!---TODO: coverage--->
 
-Todo: logo
+<!---Todo: logo--->
 
-Todo: Maven central
-
-It is available on maven central. The last stable release is `0.0.1`. An sbt dependency would look like:
+It is available on maven central. The alpha release of wisp is available as `0.0.1`. An sbt dependency would look like:
 
     "com.quantifind" %% "wisp" % "0.0.1"
 
-Todo: Integration with 3-rd party libraries: Highcharts, vega, etc. etc.?
+<!---Todo: Integration with 3-rd party libraries: Highcharts, vega, etc. etc.?--->
 
-Example:
+## Usage
+
+Full usage can be found on the [wiki](https://github.com/quantifind/wisp/wiki), but by means of example:
 
 ![Line Chart](https://github.com/quantifind/wisp/blob/master/images/line.png)
 
@@ -46,30 +47,22 @@ res0: com.qf.charts.highcharts.Highchart = Highchart(List(Series(Vector(Data(1,1
 scala>
 ```
 
-## Usage
-
-Todo: Video
-
-Todo: charts.Highchart
-
-Todo: implicits
-
-Todo: repl.Highcharts._
-
+<!---
 ## Builtin Help
 
-Todo: repl help
+Todo: repl help ? Reflect method names?
+--->
 
 ## More Info
 
-todo: wiki
+Greater detail can be found on the [wiki](https://github.com/quantifind/wisp/wiki)
 
 Wisp is open source, and we hope to get involvement from the community.  We'd love to get some pull requests.  Also, even if you don't
 have a fix, feel free to report bugs or just request new features through the [github issue tracker](https://github.com/quantifind/wisp/issues?state=open).
 
 ## Highcharts
 
-These library includes links to [Highcharts](http://www.highcharts.com/). It does not include a copy of the source code, and does not modify the source code.
+This library includes links to [Highcharts](http://www.highcharts.com/). It does not include a copy of the source code, and does not modify the source code.
 
 [Highcharts](http://www.highcharts.com/) is available freely for non-commercial use under [Creative Common NonCommercial 3.0](http://creativecommons.org/licenses/by-nc/3.0/). It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial). 
 
