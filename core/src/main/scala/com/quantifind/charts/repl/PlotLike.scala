@@ -23,7 +23,6 @@ trait Plottable[T] extends PlotLike[T] {
   def plotAll()
 
   // Heavy handed approach to undo / redo - maintain entire state in stack
-  protected val oldPlots = new mutable.Stack[T]()
   protected val undoStack = new mutable.Stack[List[T]]()
   protected val redoStack = new mutable.Stack[List[T]]()
 
@@ -43,16 +42,6 @@ trait Plottable[T] extends PlotLike[T] {
     }
   }
 
-  // Clear hides elements, delete actually deletes them. Should we have both? Clear from bottom?
-  def clear() = {
-    oldPlots.push(plots.head)
-    plots = plots.tail
-    plotAll()
-  }
-  def clearAll() = {
-    while(plots.nonEmpty) clear()
-    plotAll()
-  }
   def delete() = {
     plots = plots.tail
     plotAll()
