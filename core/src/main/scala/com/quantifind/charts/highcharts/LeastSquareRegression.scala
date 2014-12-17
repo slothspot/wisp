@@ -1,8 +1,9 @@
 package com.quantifind.charts.highcharts
 
+import com.quantifind.charts.Highcharts
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression
 import com.quantifind.charts.highcharts.Highchart._
-import com.quantifind.charts.repl.Highcharts._
+import Highcharts._
 
 /**
  * User: jannis

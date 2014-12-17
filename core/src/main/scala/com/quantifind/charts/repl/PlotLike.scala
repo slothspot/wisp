@@ -3,7 +3,6 @@ package com.quantifind.charts.repl
 import java.io.File
 import unfiltered.util.Port
 import unfiltered.jetty.Http
-import com.quantifind.charts.PlotServer
 
 import scala.collection.mutable
 
@@ -79,7 +78,7 @@ trait WebPlot[T] extends Plottable[T] {
 
   startServer()
 
-  implicit def openWindow(link: String) = {
+  def openWindow(link: String) = {
     try {
       import sys.process._
       s"open $link".!!
@@ -96,7 +95,7 @@ trait WebPlot[T] extends Plottable[T] {
     }
   }
 
-  implicit def startServer(message: String = s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}/${serverRootFileName}") {
+  def startServer(message: String = s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}/${serverRootFileName}") {
     if (!serverMode) {
       serverMode = true
       val ps = new PlotServer
@@ -109,7 +108,7 @@ trait WebPlot[T] extends Plottable[T] {
     }
   }
 
-  implicit def stopServer {
+  def stopServer {
     if (serverMode) {
       serverRootFile.delete()
       // satisfy the promise, to avoid exception on close

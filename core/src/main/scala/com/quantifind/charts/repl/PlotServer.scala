@@ -1,9 +1,10 @@
-package com.quantifind.charts
+package com.quantifind.charts.repl
 
-import scala.concurrent.{Await, Promise}
 import unfiltered.request._
 import unfiltered.response._
+
 import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Promise}
 
 /**
  * User: austin

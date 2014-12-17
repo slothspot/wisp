@@ -2,6 +2,7 @@ package com.quantifind.charts.highcharts
 
 import com.quantifind.json.ScalaJsonFactory
 import scala.collection._
+import scala.language.implicitConversions
 
 /**
  * User: austin

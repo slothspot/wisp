@@ -1,6 +1,7 @@
 package com.quantifind.charts.highcharts
 
 import scala.collection.mutable
+import scala.language.implicitConversions
 
 /**
  * User: austin

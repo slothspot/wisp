@@ -1,9 +1,7 @@
-package com.quantifind.charts
+package com.quantifind.charts.repl
 
 import unfiltered.util.Port
-//import com.typesafe.config.ConfigFactory
 import com.quantifind.sumac.{ArgMain, FieldArgs}
-import com.quantifind.charts.UnfilteredWebApp.Arguments
 
 /**
  * build up a little web app that serves static files from the resource directory
@@ -11,7 +9,7 @@ import com.quantifind.charts.UnfilteredWebApp.Arguments
  * User: pierre
  * Date: 10/3/13
  */
-trait UnfilteredWebApp[T <: Arguments] extends ArgMain[T] {
+trait UnfilteredWebApp[T <: UnfilteredWebApp.Arguments] extends ArgMain[T] {
 
   def htmlRoot: String
 
@@ -19,7 +17,7 @@ trait UnfilteredWebApp[T <: Arguments] extends ArgMain[T] {
 
   def get(parsed: T) = {
     val root = parsed.altRoot match {
-      case Some(path) => new java.io.File(path).toURL
+      case Some(path) => new java.io.File(path).toURI.toURL
       case _ => getClass.getResource(htmlRoot)
     }
 //    implicit val conf = ConfigFactory.load()

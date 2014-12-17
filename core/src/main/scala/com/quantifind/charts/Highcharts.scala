@@ -1,7 +1,8 @@
-package com.quantifind.charts.repl
+package com.quantifind.charts
 
-import com.quantifind.charts.highcharts.{SeriesType}
-import com.quantifind.charts.highcharts.LeastSquareRegression
+import com.quantifind.charts.highcharts.{LeastSquareRegression, SeriesType}
+import com.quantifind.charts.repl.{HighchartsStyles, IterableIterable, IterablePair, IterablePairLowerPriorityImplicits}
+import scala.language.implicitConversions
 
 /**
 * User: austin

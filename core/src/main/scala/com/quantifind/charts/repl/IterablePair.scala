@@ -1,5 +1,7 @@
 package com.quantifind.charts.repl
 
+import scala.language.implicitConversions
+
 /**
  * User: austin
  * Date: 12/2/14
