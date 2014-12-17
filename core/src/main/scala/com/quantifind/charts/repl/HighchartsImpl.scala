@@ -12,6 +12,9 @@ import scala.concurrent.Promise
  */
 trait WebPlotHighcharts extends WebPlot[Highchart] {
 
+  /**
+   * Iterates through the plots and builds the necessary javascript and html around them.
+   */
   def plotAll(): Unit = {
     val temp = File.createTempFile("highcharts", ".html")
     val pw = new PrintWriter(temp)
@@ -41,11 +44,9 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
     openFirstWindow(link)
 
-    // This should be specific to the instance
     println(s"Output written to $link (CMD + Click link in Mac OSX).")
   }
 
-  // TODO, refactor flow code
   override def plot(t: Highchart): Highchart = {
     super.plot(t)
     plots = t +: plots
@@ -54,11 +55,8 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     t
   }
 
-//  val _reloadJs = scala.io.Source.fromFile(new File(getClass().getResource("/nathan-reloader.js").getPath))
   def reloadJs =
-//    if (serverMode)
       "$.ajax({url: '/check', dataType: 'jsonp', complete: function(){location.reload()}})"
-//    else _reloadJs
 
   val jsHeader =
     """
@@ -108,6 +106,9 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     """.stripMargin
 }
 
+/**
+ * Defines auxiliary tools available to plots, such as adding a Title
+ */
 trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPlotHighcharts {
   import Highchart._
   override def plot(t: Highchart): Highchart = {

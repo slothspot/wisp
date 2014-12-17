@@ -23,6 +23,8 @@ trait Plottable[T] extends PlotLike[T] {
   def plotAll()
 
   // Heavy handed approach to undo / redo - maintain entire state in stack
+  // It is up to the plot-library author that their calls to plot()
+  // interoperate with undo/redo
   protected val undoStack = new mutable.Stack[List[T]]()
   protected val redoStack = new mutable.Stack[List[T]]()
 
@@ -57,6 +59,10 @@ trait Plottable[T] extends PlotLike[T] {
   }
 }
 
+/**
+ * Maintains the server state
+ * @tparam T : a Plotting type : Highchart or Vega
+ */
 trait WebPlot[T] extends Plottable[T] {
 
   val serverRootFileName = s"index-${System.currentTimeMillis()}.html"
@@ -81,6 +87,10 @@ trait WebPlot[T] extends Plottable[T] {
     }
   }
 
+  /**
+   * If this is the first plot command being called, try to open the browser
+   * @param link
+   */
   def openFirstWindow(link: String) = {
     if(!firstOpenWindow) {
       val msg = openWindow(link)
@@ -89,6 +99,12 @@ trait WebPlot[T] extends Plottable[T] {
     }
   }
 
+  /**
+   * Launches the server which hosts the plots. InetAddress.getLocalHost requires a properly configured /etc/hosts
+   * on linux machines.
+   * Assigns a random port
+   * @param message
+   */
   def startServer(message: String = s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}/${serverRootFileName}") {
     if (!serverMode) {
       serverMode = true
@@ -102,6 +118,10 @@ trait WebPlot[T] extends Plottable[T] {
     }
   }
 
+  /**
+   * Deletes the resulting index-*.html and stops the server
+   * Currently the index-*.html file persists in the $cwd if stopServer is not called.
+   */
   def stopServer {
     if (serverMode) {
       serverRootFile.delete()

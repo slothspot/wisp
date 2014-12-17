@@ -68,6 +68,9 @@ object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyl
   }
 
   // Todo: can we disclose this information through reflection, instead of hardcoding it?
+  /**
+   * Output the basic usage of Highcharts
+   */
   def help(): Unit = {
     println("\nAvailable Plot Types: Takes an Iterable, an Iterable of pairs, a pair of Iterables, or an Iterable and a Function\n")
     Seq("area", "areaspline", "bar", "column", "line", "pie", "scatter", "spline", "regression")

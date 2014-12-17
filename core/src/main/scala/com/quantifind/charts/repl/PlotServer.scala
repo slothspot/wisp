@@ -9,6 +9,8 @@ import scala.concurrent.{Await, Promise}
 /**
  * User: austin
  * Date: 12/1/14
+ *
+ * An unfiltered web-app for displaying graphs
  */
 class PlotServer extends UnfilteredWebApp[UnfilteredWebApp.Arguments]  {
   // this is fulfilled by the plot command, to allow a browser to wait for plot to reload

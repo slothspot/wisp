@@ -7,10 +7,15 @@ import scala.language.implicitConversions
 /**
  * User: austin
  * Date: 9/9/13
- * Some ideas from : https://github.com/tedeling/HighCharts-with-Scala
  *
  * Tries to closely follow : api.highcharts.com/highcharts
  *
+ * Original built for Highcharts 3.0.6, and we are now porting to 4.0.4 (12/12/14)
+ */
+
+/**
+ * implicits to offer conversions from scala types to Highcharts objects.
+ * Including wrappers around Option, and transformations from Traversable / Array to Highcharts series
  */
 object Highchart {
   // Data
@@ -42,6 +47,10 @@ object Highchart {
   implicit def optionWrap[T](value: T): Option[T] = Option(value)
 }
 
+/**
+ * Ensures the object can be cast to Map[String, Any] so we can perform json serialization
+ * @param _name
+ */
 abstract class HighchartKey(var _name: String) {
   def toServiceFormat: Map[String, Any]
 }
@@ -92,6 +101,22 @@ object HighchartKey {
 //  navigation :: (styling for exporting)
 //  pane: for guages (where are guages?)
 //
+/**
+ * Top-most level Highcharts object. Overrides some of the Highcharts defaults
+ * @param series
+ * @param title
+ * @param chart
+ * @param colors
+ * @param credits
+ * @param exporting
+ * @param legend
+ * @param plotOptions
+ * @param subtitle
+ * @param setTurboThreshold
+ * @param tooltip
+ * @param xAxis
+ * @param yAxis
+ */
 case class Highchart(
                       series: Traversable[Series],
                       title: Option[Title] = Some(Title()),
