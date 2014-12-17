@@ -62,11 +62,45 @@ Greater detail can be found on the [wiki](https://github.com/quantifind/wisp/wik
 Wisp is open source, and we hope to get involvement from the community.  We'd love to get some pull requests.  Also, even if you don't
 have a fix, feel free to report bugs or just request new features through the [github issue tracker](https://github.com/quantifind/wisp/issues?state=open).
 
-## Highcharts
+## Contributors
 
-This library includes links to [Highcharts](http://www.highcharts.com/). It does not include a copy of the source code, and does not modify the source code.
+We would like to thank all of the engineers who helped make this possible
 
-[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use under [Creative Common NonCommercial 3.0](http://creativecommons.org/licenses/by-nc/3.0/). It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial). 
+<style type="text/css">
+table {border: none;}
+</style>
+<table border="0">
+  <tr>
+    <td><a href=https://github.com/ajberglund >Andrew Berglund</a></td>
+    <td>Original prototype, plot server</td>
+  </tr>
+    <tr>
+    <td><a href=http://www.ee.calpoly.edu/faculty/adanowit/ >Andrew Danowitz</a></td>
+    <td>Naming Wisp!</td>
+  </tr>
+    <tr>
+    <td><a href=https://github.com/AustinBGibbons >Highcharts integration</a></td>
+    <td>Original prototype, plot server</td>
+  </tr>
+    <tr>
+    <td><a href=https://github.com/dadarakt >Jannis Eichborn</a></td>
+    <td>Least squares regression</td>
+  </tr>
+    <tr>
+    <td><a href=https://github.com/kthn >Karthik Thiyagarajan</a></td>
+    <td>Json parsing</td>
+  </tr>
+    <tr>
+    <td><a href=https://github.com/ajberglund >Pierre Andrews</a></td>
+    <td><a href=http://unfiltered.databinder.net/Unfiltered.html >Unfiltered</a> support</td>
+  </tr>
+    <tr>
+    <td><a href=https://github.com/ryanlecompte >Ryan LeCompte</a></td>
+    <td>Type-Class wizardry</td>
+  </tr>
+</table>
+
+and the entire [Quantifind](http://quantifind.com/) family for all their help in design, support, and execution!
 
 ## Contributing
 
@@ -76,3 +110,8 @@ Because this open source project is released by [Quantifind](http://www.quantifi
 - If you are an individual, please sign [this contributors agreement](https://docs.google.com/a/quantifind.com/document/d/1RS7qEjq3cCmJ1665UhoCMK8541Ms7KyU3kVFoO4CR_I/) and send it back to contributors@quantifind.com
 - If you are contributing changes that you did as part of your work, please sign [this contributors agreement](https://docs.google.com/a/quantifind.com/document/d/1kNwLT4qG3G0Ct2mEuNdBGmKDYuApN1CpQtZF8TSVTjE/) and send it back to contributors@quantifind.com
 
+## Highcharts
+
+This library includes links to [Highcharts](http://www.highcharts.com/). It does not include a copy of the source code, and does not modify the source code.
+
+[Highcharts](http://www.highcharts.com/) is available freely for non-commercial use under [Creative Common NonCommercial 3.0](http://creativecommons.org/licenses/by-nc/3.0/). It is **not** free for [non-commercial use](http://shop.highsoft.com/faq/non-commercial#what-is-non-commercial). 
