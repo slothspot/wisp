@@ -43,11 +43,16 @@ trait Plottable[T] extends PlotLike[T] {
   }
 
   def delete() = {
-    plots = plots.tail
-    plotAll()
+    if(plots.nonEmpty) {
+      undoStack.push(plots)
+      plots = plots.tail
+      plotAll()
+    }
   }
+
   def deleteAll() = {
-    while(plots.nonEmpty) delete()
+    undoStack.push(plots)
+    plots = List[T]()
     plotAll()
   }
 }

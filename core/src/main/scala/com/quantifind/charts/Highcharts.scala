@@ -89,8 +89,8 @@ object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyl
     ListMap(
       "undo" -> "undoes the most recent action",
       "redo" -> "the opposite of undo",
-      "clear" -> "wipes the most recent chart from the page",
-      "clearAll" -> "wipes all plots from the page"
+      "delete" -> "wipes the most recent chart from the page",
+      "deleteAll" -> "wipes all plots from the page"
     ).foreach{case(method, description) => println("\t%-35s%s".format(method, description))}
   }
 }
