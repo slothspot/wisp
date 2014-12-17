@@ -76,8 +76,8 @@ We would like to thank all of the engineers who helped make this possible
     <td>Naming Wisp!</td>
   </tr>
     <tr>
-    <td><a href=https://github.com/AustinBGibbons >Highcharts integration</a></td>
-    <td>Original prototype, plot server</td>
+    <td><a href=https://github.com/AustinBGibbons >Austin Gibbons</a></td>
+    <td>Highcharts integration</td>
   </tr>
     <tr>
     <td><a href=https://github.com/dadarakt >Jannis Eichborn</a></td>
@@ -88,7 +88,7 @@ We would like to thank all of the engineers who helped make this possible
     <td>Json parsing</td>
   </tr>
     <tr>
-    <td><a href=https://github.com/ajberglund >Pierre Andrews</a></td>
+    <td><a href=https://github.com/Mortimerp9 >Pierre Andrews</a></td>
     <td><a href=http://unfiltered.databinder.net/Unfiltered.html >Unfiltered</a> support</td>
   </tr>
     <tr>
