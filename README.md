@@ -72,7 +72,7 @@ We would like to thank all of the engineers who helped make this possible
     <td>Original prototype, plot server</td>
   </tr>
     <tr>
-    <td><a href=http://www.ee.calpoly.edu/faculty/adanowit/ >Andrew Danowitz</a></td>
+    <td><a href=https://ceng.calpoly.edu/faculty/adanowit/ >Andrew Danowitz</a></td>
     <td>Naming Wisp!</td>
   </tr>
     <tr>
