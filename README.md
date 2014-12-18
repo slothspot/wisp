@@ -47,11 +47,50 @@ res0: com.qf.charts.highcharts.Highchart = Highchart(List(Series(Vector(Data(1,1
 scala>
 ```
 
-<!---
 ## Builtin Help
 
-Todo: repl help ? Reflect method names?
---->
+```
+scala> import com.quantifind.charts.Highcharts._
+import com.quantifind.charts.Highcharts._
+
+scala> help()
+serving resources from: file:/Users/austin/IdeaProjects/wisp/index-1418919953763.html
+2014-12-18 08:25:53.984:INFO:oejs.Server:jetty-7.6.0.v20120127
+2014-12-18 08:25:54.022:INFO:oejsh.ContextHandler:started o.e.j.s.ServletContextHandler{/,file:/Users/austin/IdeaProjects/wisp/index-1418919953763.html}
+2014-12-18 08:25:54.035:INFO:oejs.AbstractConnector:Started SocketConnector@0.0.0.0:61395
+Server started: http://192.168.1.251:61395/index-1418919953763.html
+
+Available Plot Types: Takes an Iterable, an Iterable of pairs, a pair of Iterables, or an Iterable and a Function
+
+	area
+	areaspline
+	bar
+	column
+	line
+	pie
+	scatter
+	spline
+	regression
+
+Stylistic changes:
+
+	hold                               plots the next plot on top of the existing plot
+	unhold                             plots the next plot in a new chart
+	title(String)                      add a title to the most recent plot
+	xAxis(String)                      adds a label to the x-axis
+	yAxis(String)                      adds a label to y-axis
+	legend(Iterable[String])           adds a legend to the most recent plot
+	stack(["normal", "percent"])       stacks bars, columns, and lines relative to each other
+
+Server Controls:
+
+	undo                               undoes the most recent action
+	redo                               the opposite of undo
+	delete                             wipes the most recent chart from the page
+	deleteAll                          wipes all plots from the page
+
+scala>
+```
 
 ## More Info
 
