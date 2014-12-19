@@ -1,6 +1,6 @@
 package com.quantifind.charts
 
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 import org.scalatest.FunSuite
 import com.quantifind.charts.highcharts._
 import Highchart._
@@ -9,7 +9,7 @@ import Highchart._
  * User: austin
  * Date: 10/4/13
  */
-class HighchartTest extends FunSuite with ShouldMatchers {
+class HighchartTest extends FunSuite with Matchers {
 
   test("Single point Highchart to json") {
     val hc = Highchart(Seq(Series(Seq(Data(1, 2)))), chart = Chart(zoomType = Zoom.xy), yAxis = None).toServiceFormat
