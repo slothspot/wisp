@@ -108,7 +108,7 @@ We would like to thank all of the engineers who helped make this possible
 <table border="0">
   <tr>
     <td><a href=https://github.com/ajberglund >Andrew Berglund</a></td>
-    <td>Original prototype, plot server</td>
+    <td>Original prototype</td>
   </tr>
   <tr>
     <td><a href=https://ceng.calpoly.edu/faculty/adanowit/ >Andrew Danowitz</a></td>
