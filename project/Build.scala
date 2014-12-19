@@ -93,10 +93,6 @@ object WispBuild extends Build {
 			javacOptions ++= Seq("-target", "1.6", "-source", "1.6")
 		)
 
-	def coreSettings = sharedSettings ++ Seq(
-		name := "Wisp"
-	)
-
 	def wispSettings = sharedSettings ++ Seq(
 		name := "Wisp",
 		libraryDependencies ++= Seq(
