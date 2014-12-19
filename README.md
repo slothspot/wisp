@@ -7,7 +7,7 @@ tools to the scala console, while preserving an at-your-finger-tips feel readily
 
 <!---Todo: logo--->
 
-It will soon be available on maven central. The alpha release of wisp is available as `0.0.1`. An sbt dependency would look like:
+It is available on maven central. The alpha release of wisp is available as `0.0.1`. An sbt dependency would look like:
 
     "com.quantifind" %% "wisp" % "0.0.1"
 
@@ -108,29 +108,33 @@ We would like to thank all of the engineers who helped make this possible
 <table border="0">
   <tr>
     <td><a href=https://github.com/ajberglund >Andrew Berglund</a></td>
-    <td>Original prototype, plot server</td>
+    <td>Original prototype</td>
   </tr>
-    <tr>
+  <tr>
     <td><a href=https://ceng.calpoly.edu/faculty/adanowit/ >Andrew Danowitz</a></td>
     <td>Naming Wisp!</td>
   </tr>
-    <tr>
+  <tr>
     <td><a href=https://github.com/AustinBGibbons >Austin Gibbons</a></td>
     <td>Highcharts integration</td>
   </tr>
-    <tr>
+  <tr>
     <td><a href=https://github.com/dadarakt >Jannis Eichborn</a></td>
     <td>Least squares regression</td>
   </tr>
-    <tr>
+  <tr>
     <td><a href=https://github.com/kthn >Karthik Thiyagarajan</a></td>
     <td>Json parsing</td>
   </tr>
-    <tr>
+  <tr>
+  <td><a href=https://github.com/nathfisher >Nathan Fisher</a></td>
+    <td>Web support</td>
+  </tr>
+  <tr>
     <td><a href=https://github.com/Mortimerp9 >Pierre Andrews</a></td>
     <td><a href=http://unfiltered.databinder.net/Unfiltered.html >Unfiltered</a> support</td>
   </tr>
-    <tr>
+  <tr>
     <td><a href=https://github.com/ryanlecompte >Ryan LeCompte</a></td>
     <td>Type-Class wizardry</td>
   </tr>
