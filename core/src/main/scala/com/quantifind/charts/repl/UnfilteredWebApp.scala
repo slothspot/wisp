@@ -22,9 +22,9 @@ trait UnfilteredWebApp[T <: UnfilteredWebApp.Arguments] extends ArgMain[T] {
     }
 //    implicit val conf = ConfigFactory.load()
     println("serving resources from: " + root)
-    val server = unfiltered.jetty.Http(parsed.port)
+    val server = unfiltered.jetty.Server.http(parsed.port)
       .resources(root) //whatever is not matched by our filter will be served from the resources folder (html, css, ...)
-      .filter(setup(parsed))
+      .plan(setup(parsed))
     val connector = server.underlying.getConnectors.head
     connector.setRequestHeaderSize(parsed.headerSize)
     server

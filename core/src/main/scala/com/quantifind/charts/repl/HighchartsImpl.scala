@@ -31,7 +31,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     pw.close()
 
     plotServer.foreach{ps =>
-      ps.p.success()
+      ps.p.success(())
       ps.p = Promise[Unit]()
     }
 

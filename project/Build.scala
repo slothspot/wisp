@@ -5,7 +5,8 @@ object WispBuild extends Build {
 
   def sharedSettings = Defaults.defaultSettings ++ Seq(
     version := "0.1-SNAPSHOT",
-    scalaVersion := "2.10.3",
+    scalaVersion := "2.11.4",
+    crossScalaVersions := Seq("2.10.4", "2.11.4"),
     organization := "com.quantifind",
     scalacOptions := Seq("-deprecation", "-unchecked", "-optimize"),
   	retrieveManaged := true,
@@ -16,7 +17,7 @@ object WispBuild extends Build {
     ),
 
   	libraryDependencies ++= Seq(
-  		"org.scalatest" %% "scalatest" % "1.9.1" % "test"
+  		"org.scalatest" %% "scalatest" % "2.2.1" % "test"
     )
   )
 
@@ -26,14 +27,12 @@ object WispBuild extends Build {
 		name := "Wisp",
 		libraryDependencies ++= Seq(
 		  // Do we need all these jackson imports?
-			"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.2.2",
-			"com.fasterxml.jackson.core" % "jackson-annotations" % "2.2.2",
-			"com.fasterxml.jackson.module" % "jackson-module-jsonSchema" % "2.2.2",
-			"com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % "2.2.2",
-			// Do we neet all these unfiltered imports?
-			"net.databinder" %% "unfiltered-filter" % "0.6.7",
-			"net.databinder" %% "unfiltered-jetty" % "0.6.7",
-			"net.databinder" %% "unfiltered-json" % "0.6.7",
+			"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.4.0",
+			"com.fasterxml.jackson.core" % "jackson-annotations" % "2.4.0",
+			"com.fasterxml.jackson.module" % "jackson-module-jsonSchema" % "2.4.0",
+			"com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % "2.4.0",
+			"net.databinder" %% "unfiltered-filter" % "0.8.3",
+			"net.databinder" %% "unfiltered-jetty" % "0.8.3",
 			"com.quantifind" %% "sumac" % "0.3.0",
                         "org.apache.commons" % "commons-math3" % "3.1"
 		)

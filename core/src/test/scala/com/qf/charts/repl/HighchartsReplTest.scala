@@ -1,7 +1,7 @@
 package com.qf.charts.repl
 
 import com.quantifind.charts.Highcharts
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers
 import org.scalatest.FunSuite
 import Highcharts._
 
@@ -9,7 +9,7 @@ import Highcharts._
  * User: austin
  * Date: 12/15/14
  */
-class HighchartsReplTest extends FunSuite with ShouldMatchers  {
+class HighchartsReplTest extends FunSuite with Matchers  {
 
   test("Pie repl") {
     firstOpenWindow = true // prevents server from starting

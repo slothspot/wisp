@@ -2,7 +2,7 @@ package com.quantifind.charts.repl
 
 import java.io.File
 import unfiltered.util.Port
-import unfiltered.jetty.Http
+import unfiltered.jetty.Server
 
 import scala.collection.mutable
 
@@ -73,7 +73,7 @@ trait WebPlot[T] extends Plottable[T] {
   var serverRootFile = new File(serverRootFileName)
   val localFile = java.io.File.createTempFile("scala-viz-", ".html")
 
-  var http: Option[Http] = None
+  var http: Option[Server] = None
   var plotServer: Option[PlotServer] = None
 
   startServer()
@@ -127,7 +127,7 @@ trait WebPlot[T] extends Plottable[T] {
       serverRootFile.delete()
       // satisfy the promise, to avoid exception on close
       // TODO handle failure in the PlotServer
-      plotServer.map(_.p.success())
+      plotServer.map(_.p.success(()))
       http.map(_.stop)
       http.map(_.destroy)
       serverMode = false
