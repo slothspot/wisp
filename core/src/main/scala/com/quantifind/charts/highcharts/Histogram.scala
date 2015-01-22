@@ -9,7 +9,7 @@ object Histogram {
   def histogram(data: Seq[Double], numBins: Int): Highchart = {
 
     val (min, max) = (data.min, data.max)
-    val binWidth = (max - (min-1)) / numBins
+    val binWidth = ((max+1) - min) / numBins.toDouble
 
     // This strategy risks short-changing the last bin - perhaps there is a more fair way to do it?
     def toBin(d: Double) = ((d - min) / binWidth).toInt
