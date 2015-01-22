@@ -81,7 +81,13 @@ trait WebPlot[T] extends Plottable[T] {
 
   def openWindow(link: String) = {
    import sys.process._
-    Try(s"open $link"!!).orElse(Try(s"xdg-open $link"!!)).recover{
+    Try{
+      java.awt.Desktop.getDesktop.browse(new java.net.URI(link))
+      link
+    }
+    .orElse(Try(s"open $link"!!))
+    .orElse(Try(s"xdg-open $link"!!))
+    .recover{
       case ex: Exception => s"Unable to open $link : in browser, ie trying to launch browser on a remote machine"
     }.get
   }
