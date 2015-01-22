@@ -1,6 +1,7 @@
 package com.quantifind.charts.repl
 
 import java.io.File
+import scala.util.Try
 import unfiltered.util.Port
 import unfiltered.jetty.Server
 
@@ -79,12 +80,10 @@ trait WebPlot[T] extends Plottable[T] {
   startServer()
 
   def openWindow(link: String) = {
-    try {
-      import sys.process._
-      s"open $link".!!
-    } catch {
+   import sys.process._
+    Try(s"open $link"!!).orElse(Try(s"xdg-open $link"!!)).recover{
       case ex: Exception => s"Unable to open $link : in browser, ie trying to launch browser on a remote machine"
-    }
+    }.get
   }
 
   /**
