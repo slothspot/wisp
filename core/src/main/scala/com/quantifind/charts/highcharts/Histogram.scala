@@ -23,7 +23,12 @@ object Histogram {
       pointPadding = Some(0)
     ))))
 
-    val hc = Highchart(series = Seq(series), plotOptions = plotOptions)
+    val xAxis = Some(Array(Axis(labels = Some(AxisLabel(rotation = Some(-45))), categories = Some((min to max by binWidth).map { bin =>
+      val end = bin+binWidth
+      f"$bin%.2f-$end%.2f"
+    }.toArray))))
+
+    val hc = Highchart(series = Seq(series), plotOptions = plotOptions, xAxis = xAxis)
 
     hc
   }

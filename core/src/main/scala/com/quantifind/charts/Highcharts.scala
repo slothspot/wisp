@@ -1,6 +1,6 @@
 package com.quantifind.charts
 
-import com.quantifind.charts.highcharts.{LeastSquareRegression, SeriesType}
+import com.quantifind.charts.highcharts.{Histogram, LeastSquareRegression, SeriesType}
 import com.quantifind.charts.repl.{HighchartsStyles, IterableIterable, IterablePair, IterablePairLowerPriorityImplicits}
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
@@ -39,6 +39,14 @@ object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyl
   def column[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
     xyToSeries(xr, yr, SeriesType.column)
+  }
+
+  // Histogram only takes in a sequence of numerics
+  // Todo - can we more intelligently infer a default numBins when it's unprovided?
+  // Todo - overlay the distribution line and infer a model?
+  def histogram[A: Numeric](data: Iterable[A], numBins: Int = 10) = {
+    def numericToDouble[X](x: X)(implicit ev: Numeric[X]): Double = ev.toDouble(x)
+    plot(Histogram.histogram(data.toSeq.map(numericToDouble(_)), numBins))
   }
 
   def line[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
