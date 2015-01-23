@@ -99,8 +99,6 @@ object WispBuild extends Build {
 		  // Do we need all these jackson imports?
 			"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.4.0",
 			"com.fasterxml.jackson.core" % "jackson-annotations" % "2.4.0",
-			"com.fasterxml.jackson.module" % "jackson-module-jsonSchema" % "2.4.0",
-			"com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % "2.4.0",
 			"net.databinder" %% "unfiltered-filter" % "0.8.3",
 			"net.databinder" %% "unfiltered-jetty" % "0.8.3",
 			"com.quantifind" %% "sumac" % "0.3.0",

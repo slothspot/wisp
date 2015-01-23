@@ -4,16 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core._
 import com.fasterxml.jackson.core.`type`.TypeReference
 import com.fasterxml.jackson.databind._
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema
-import com.fasterxml.jackson.module.jsonSchema.factories._
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import java.io.{ObjectInputStream, StringWriter}
 import java.lang.reflect.{ParameterizedType, Type}
 import scala.collection.JavaConverters._
 import scala.collection._
 import scala.collection.mutable.HashMap
-import scala.reflect.ClassTag
-import com.fasterxml.jackson.datatype.joda.JodaModule
 import scala.util.control.NonFatal
 
 
@@ -55,8 +51,6 @@ object ScalaJsonFactory extends java.io.Serializable {
     // Scala specific. Register the scala module with the asl mapper
     mapper.registerModule(DefaultScalaModule)
 
-    mapper.registerModule(new JodaModule())
-
     mapper
   }
 
@@ -94,25 +88,6 @@ object ScalaJsonFactory extends java.io.Serializable {
 
   def typeReference[T: Manifest] = new TypeReference[T] {
     override def getType = typeFromManifest(manifest[T])
-  }
-
-  /**
-   * Generates a JSON schema object for the specified type.
-   * Example usage:
-   *
-   * {{{
-   *   // create schema object
-   *   val jsonSchema = ScalaJsonFactory.mkSchema[MongoBean]
-   *   // marshal it out
-   *   ScalaJsonFactory.getObjectMapper.writeValueAsString(jsonSchema)
-   * }}}
-   */
-  def mkSchema[T: ClassTag]: JsonSchema = {
-    val mapper = getObjectMapper()
-    val clazz = implicitly[ClassTag[T]].runtimeClass.asInstanceOf[Class[T]]
-    val visitor = new SchemaFactoryWrapper()
-    mapper.acceptJsonFormatVisitor(mapper.constructType(clazz), visitor)
-    visitor.finalSchema()
   }
 
   private[this] def typeFromManifest(m: Manifest[_]): Type = {
