@@ -24,7 +24,7 @@ object WispBuild extends Build {
 		BranchRelease.branchSettings ++
 		xerial.sbt.Sonatype.sonatypeSettings ++
 		Seq(
-			scalaVersion := "2.11.4",
+			scalaVersion := "2.10.4",
 			crossScalaVersions := Seq("2.10.4", "2.11.4"),
 			organization := "com.quantifind",
 			scalacOptions := Seq("-deprecation", "-unchecked", "-optimize"),
@@ -96,9 +96,7 @@ object WispBuild extends Build {
 	def wispSettings = sharedSettings ++ Seq(
 		name := "Wisp",
 		libraryDependencies ++= Seq(
-		  // Do we need all these jackson imports?
-			"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.4.0",
-			"com.fasterxml.jackson.core" % "jackson-annotations" % "2.4.0",
+			"org.json4s" %% "json4s-jackson" % "3.2.10",
 			"net.databinder" %% "unfiltered-filter" % "0.8.3",
 			"net.databinder" %% "unfiltered-jetty" % "0.8.3",
 			"com.quantifind" %% "sumac" % "0.3.0",
