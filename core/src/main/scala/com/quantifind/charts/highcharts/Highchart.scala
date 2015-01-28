@@ -1,6 +1,8 @@
 package com.quantifind.charts.highcharts
 
-import com.quantifind.json.ScalaJsonFactory
+import org.json4s.NoTypeHints
+import org.json4s.JsonDSL.WithDouble._
+import org.json4s.jackson.Serialization
 import scala.collection._
 import scala.language.implicitConversions
 
@@ -135,7 +137,8 @@ case class Highchart(
 
   import HighchartKey._
 
-  def toJson = ScalaJsonFactory.serialize(jsonMap)
+  implicit val formats = Serialization.formats(NoTypeHints)
+  def toJson = Serialization.write(jsonMap)
 
   def jsonMap: Map[String, Any] = {
     if(series.size == 0) System.err.println("Tried to create a chart with no series")

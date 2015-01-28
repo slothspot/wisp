@@ -1,6 +1,7 @@
 package com.quantifind.charts.repl
 
 import java.io.File
+import scala.util.{Failure, Try}
 import unfiltered.util.Port
 import unfiltered.jetty.Server
 
@@ -79,12 +80,13 @@ trait WebPlot[T] extends Plottable[T] {
   startServer()
 
   def openWindow(link: String) = {
-    try {
-      import sys.process._
-      s"open $link".!!
-    } catch {
-      case ex: Exception => s"Unable to open $link : in browser, ie trying to launch browser on a remote machine"
+   import sys.process._
+    Try{
+      java.awt.Desktop.getDesktop.browse(new java.net.URI(link))
+      link
     }
+    .orElse(Try(s"open $link"!!))
+    .orElse(Try(s"xdg-open $link"!!))
   }
 
   /**
@@ -93,8 +95,12 @@ trait WebPlot[T] extends Plottable[T] {
    */
   def openFirstWindow(link: String) = {
     if(!firstOpenWindow) {
-      val msg = openWindow(link)
-      if (msg.nonEmpty) println("Error on opening window: " + msg)
+      openWindow(link) match {
+        case Failure(msg) =>
+          println(s"Error while opening window (cause: $msg)")
+          println(s"You can browse the following URL: $link")
+        case _ =>
+      }
       firstOpenWindow = true
     }
   }

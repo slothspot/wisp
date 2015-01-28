@@ -2,14 +2,16 @@
 It focuses on existing web-based plotting libraries, and strives to bring the power and flexibility of web-based plotting
 tools to the scala console, while preserving an at-your-finger-tips feel readily found in matlab, R, and many other languages.
 
+[Watch the introductory video](https://www.youtube.com/watch?v=LZH9rCEP-6w)
+
 <!---[![Build Status](https://travis-ci.org/quantifind/Wisp.svg?branch=master)](https://travis-ci.org/quantifind/Wisp)--->
 <!---TODO: coverage--->
 
 <!---Todo: logo--->
 
-It is available on maven central. The alpha release of wisp is available as `0.0.1`. An sbt dependency would look like:
+It is available on maven central. The alpha release of wisp is available as `0.0.2`. An sbt dependency would look like:
 
-    "com.quantifind" %% "wisp" % "0.0.1"
+    "com.quantifind" %% "wisp" % "0.0.2"
 
 <!---Todo: Integration with 3-rd party libraries: Highcharts, vega, etc. etc.?--->
 
@@ -123,20 +125,12 @@ We would like to thank all of the engineers who helped make this possible
     <td>Least squares regression</td>
   </tr>
   <tr>
-    <td><a href=https://github.com/kthn >Karthik Thiyagarajan</a></td>
-    <td>Json parsing</td>
-  </tr>
-  <tr>
   <td><a href=https://github.com/nathfisher >Nathan Fisher</a></td>
     <td>Web support</td>
   </tr>
   <tr>
     <td><a href=https://github.com/Mortimerp9 >Pierre Andrews</a></td>
     <td><a href=http://unfiltered.databinder.net/Unfiltered.html >Unfiltered</a> support</td>
-  </tr>
-  <tr>
-    <td><a href=https://github.com/ryanlecompte >Ryan LeCompte</a></td>
-    <td>Type-Class wizardry</td>
   </tr>
 </table>
 
