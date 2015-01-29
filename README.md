@@ -74,6 +74,10 @@ Available Plot Types: Takes an Iterable, an Iterable of pairs, a pair of Iterabl
 	spline
 	regression
 
+Other plotting options:
+
+	histogram                          Iterable of Numerics or Pairs
+
 Stylistic changes:
 
 	hold                               plots the next plot on top of the existing plot

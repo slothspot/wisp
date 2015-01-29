@@ -91,7 +91,10 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
     Seq("area", "areaspline", "bar", "column", "line", "pie", "scatter", "spline", "regression")
       .map(s => "\t" + s)
       .foreach(println)
-
+    println("\nOther plotting options:\n")
+    Map("histogram" -> "Iterable of Numerics or Pairs")
+      .map{case(plot, description) =>"\t%-35s%s".format(plot, description)}
+      .foreach(println)
     println("\nStylistic changes:\n")
     ListMap(
       "hold" -> "plots the next plot on top of the existing plot",
