@@ -1,7 +1,7 @@
 package com.quantifind.charts
 
-import com.quantifind.charts.highcharts.{Histogram, LeastSquareRegression, SeriesType}
-import com.quantifind.charts.repl.{HighchartsStyles, IterableIterable, IterablePair, IterablePairLowerPriorityImplicits}
+import com.quantifind.charts.highcharts.{Highchart, Histogram, LeastSquareRegression, SeriesType}
+import com.quantifind.charts.repl._
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 
@@ -15,11 +15,16 @@ import scala.language.implicitConversions
 * defined in a trait to have Iterable[T] with PartialFunction[Int, T] resolve to this method
 */
 
-object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyles {
+object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowerPriorityImplicits with HighchartsStyles {
 
   implicit def mkIterableIterable[A: Numeric, B: Numeric](ab: (Iterable[A], Iterable[B])) = new IterableIterable(ab._1, ab._2)
   implicit def mkIterableIterable[A: Numeric, B: Numeric](ab: (Iterable[(A, B)])) = new IterableIterable(ab.map(_._1), ab.map(_._2))
   implicit def mkIterableIterable[B: Numeric](b: (Iterable[B])) = new IterableIterable((0 until b.size), b)
+
+  implicit def binIterableNumBins[A: Numeric](data: Iterable[A], numBins: Int): BinnedData = new IterableBinned[A](data, numBins)
+  implicit def mkPair[A, B: Numeric](data: Iterable[(A, B)]) = new PairBinned(data)
+  implicit def mkTrueTriplet[A, B, C: Numeric](data: Iterable[(A, B, C)]) = new TrueTripletBinned(data)
+  implicit def mkCoupledTriplet[A, B, C: Numeric](data: Iterable[((A, B), C)]) = new CoupledTripletBinned(data)
 
   def area[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
@@ -41,12 +46,14 @@ object Highcharts extends IterablePairLowerPriorityImplicits with HighchartsStyl
     xyToSeries(xr, yr, SeriesType.column)
   }
 
-  // Histogram only takes in a sequence of numerics
-  // Todo - can we more intelligently infer a default numBins when it's unprovided?
-  // Todo - overlay the distribution line and infer a model?
-  def histogram[A: Numeric](data: Iterable[A], numBins: Int = 10) = {
-    def numericToDouble[X](x: X)(implicit ev: Numeric[X]): Double = ev.toDouble(x)
-    plot(Histogram.histogram(data.toSeq.map(numericToDouble(_)), numBins))
+  def histogram[A: Numeric](data: Iterable[A], numBins: Int) = {
+    val binCounts = binIterableNumBins(data, numBins).toBinned().toSeq
+    plot(Histogram.histogram(binCounts))
+  }
+
+  def histogram(data: BinnedData) = {
+    val binCounts = data.toBinned().toSeq
+    plot(Histogram.histogram(binCounts))
   }
 
   def line[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {

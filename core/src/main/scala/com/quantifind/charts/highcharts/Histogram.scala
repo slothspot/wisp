@@ -5,32 +5,21 @@ package com.quantifind.charts.highcharts
  * Date: 12/20/14
  */
 object Histogram {
-
-  def histogram(data: Seq[Double], numBins: Int): Highchart = {
-
-    val (min, max) = (data.min, data.max)
-    val binWidth = ((max+1) - min) / numBins.toDouble
-
-    // This strategy risks short-changing the last bin - perhaps there is a more fair way to do it?
-    def toBin(d: Double) = ((d - min) / binWidth).toInt
-
-    val binCounts = data.map(toBin).groupBy(identity).mapValues(_.size).toSeq.sortBy(_._1)
-
+  def histogram(binCounts: Seq[(String, Double)]) = {
     // Does not rely on implicit imports - use import Highchart._ in an application!
-    val series = Series(binCounts.map{case(bin, count) => Data(bin, count)}, chart = Some(SeriesType.column))
+    val series = Series(binCounts.zipWithIndex.map{case((bucket, count), index) => Data(index, count, name = Some(bucket))}, chart = Some(SeriesType.column))
     val plotOptions = Some(PlotOptions(series = Some(PlotOptionKey(
       groupPadding = Some(0),
       pointPadding = Some(0)
     ))))
 
-    val xAxis = Some(Array(Axis(labels = Some(AxisLabel(rotation = Some(-45))), categories = Some((min to max by binWidth).map { bin =>
-      val end = bin+binWidth
-      f"$bin%.2f-$end%.2f"
-    }.toArray))))
+    val categories = binCounts.map(_._1).zipWithIndex.map{case(key, index) =>
+      if(binCounts.size <= 42 || index % 3 == 0) key else ""
+    }.toArray
+    val xAxis = Some(Array(Axis(labels = Some(AxisLabel(rotation = Some(-45))), categories = Some(categories))))
 
     val hc = Highchart(series = Seq(series), plotOptions = plotOptions, xAxis = xAxis)
 
     hc
   }
-
 }
