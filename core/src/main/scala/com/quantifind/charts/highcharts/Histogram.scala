@@ -13,8 +13,11 @@ object Histogram {
       pointPadding = Some(0)
     ))))
 
+    val numBins = binCounts.size
+    val sqrt = math.sqrt(numBins).toInt
+
     val categories = binCounts.map(_._1).zipWithIndex.map{case(key, index) =>
-      if(binCounts.size <= 42 || index % 3 == 0) key else ""
+      if(binCounts.size < 42 || index % sqrt == 0) key else ""
     }.toArray
     val xAxis = Some(Array(Axis(labels = Some(AxisLabel(rotation = Some(-45))), categories = Some(categories))))
 

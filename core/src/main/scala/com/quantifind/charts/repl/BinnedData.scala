@@ -80,9 +80,8 @@ class IterableBinned[A: Numeric](data: Iterable[A], numBins: Int = -1) extends B
 
 trait BinnedDataLowerPriorityImplicits {
   implicit def binIterable[A: Numeric](data: Iterable[A]): BinnedData = {
-    println("!!Computing numBins!!")
     val numElements = data.toSeq.distinct.size
-    val numBins = math.min(numElements, 10)
+    val numBins = math.sqrt(numElements).toInt
     new IterableBinned[A](data, numBins)
   }
 }
