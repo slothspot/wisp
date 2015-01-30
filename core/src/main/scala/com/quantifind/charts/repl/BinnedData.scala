@@ -37,11 +37,11 @@ class IterableBinned[A: Numeric](data: Iterable[A], numBins: Int = -1) extends B
 
   def format(start: Double, end: Double, digits: Int) = {
     digits match {
-      case x if x<=2 => f"$start%.2f-$end%.2f"
-      case 3 => f"$start%.3f-$end%.3f"
-      case 4 => f"$start%.4f-$end%.4f"
-      case 5 => f"$start%.5f-$end%.5f"
-      case _ => f"$start%.6f-$end%.6f"
+      case x if x<=2 => f"$start%.2f - $end%.2f"
+      case 3 => f"$start%.3f - $end%.3f"
+      case 4 => f"$start%.4f - $end%.4f"
+      case 5 => f"$start%.5f - $end%.5f"
+      case _ => f"$start%.6f - $end%.6f"
     }
   }
 

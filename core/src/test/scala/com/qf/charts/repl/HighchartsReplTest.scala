@@ -1,9 +1,8 @@
 package com.qf.charts.repl
 
-import com.quantifind.charts.Highcharts
+import com.quantifind.charts.Highcharts._
 import org.scalatest.Matchers
 import org.scalatest.FunSuite
-import Highcharts._
 
 /**
  * User: austin
