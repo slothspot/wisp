@@ -9,15 +9,13 @@ package com.quantifind.charts.repl
 trait BinnedData {
   def toBinned(): Iterable[(String, Double)]
 
-  def coupledTripletBinned[A, B, C: Numeric](data: Iterable[((A, B), C)]) = {
-    def numericToDouble[X](x: X)(implicit ev: Numeric[X]): Double = ev.toDouble(x)
-    data.map{case((a, b), c) => s"$a - $b" -> numericToDouble(c)}
+  def coupledTripletBinned[A, B, C](data: Iterable[((A, B), C)])(implicit ev: Numeric[C]) = {
+    data.map{case((a, b), c) => s"$a - $b" -> ev.toDouble(c)}
   }
 }
 
-class PairBinned[A, B: Numeric](data: Iterable[(A, B)]) extends BinnedData {
-  def numericToDouble[X](x: X)(implicit ev: Numeric[X]): Double = ev.toDouble(x)
-  def toBinned(): Iterable[(String, Double)] = data.map{case(a, b) => a.toString -> numericToDouble(b)}
+class PairBinned[A, B: Numeric](data: Iterable[(A, B)])(implicit ev: Numeric[B]) extends BinnedData {
+  def toBinned(): Iterable[(String, Double)] = data.map{case(a, b) => a.toString -> ev.toDouble(b)}
 }
 
 class TrueTripletBinned[A, B, C: Numeric](data: Iterable[(A, B, C)]) extends BinnedData {
@@ -30,7 +28,7 @@ class CoupledTripletBinned[A, B, C: Numeric](data: Iterable[((A, B), C)]) extend
 
 class IterableBinned[A: Numeric](data: Iterable[A], numBins: Int = -1) extends BinnedData {
 
-  // Conditionally format on nuumber of leading zeros
+  // Conditionally format on number of leading zeros
   // To support bins like 0.0001875 - 0.0002
   // While preserving 1.0 - 2.0 instead of 1.000 - 2.000
   def leadingZeros(x: Double) = {
