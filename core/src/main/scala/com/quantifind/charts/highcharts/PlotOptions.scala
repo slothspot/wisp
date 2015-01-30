@@ -61,11 +61,16 @@ case class PlotOptions(
   }
 }
 
-// TODO name
-case class PlotOptionKey( // todo!
+case class PlotOptionKey( // todo - many more fields
+                         borderWidth: Option[Int] = None,
+                         groupPadding: Option[Int] = None,
+                         pointPadding: Option[Int] = None,
                          stacking: Option[Stacking.Type] = None
                           ) {
   def toServiceFormat = Map(
+    "borderWidth" -> borderWidth,
+    "groupPadding" -> groupPadding,
+    "pointPadding" -> pointPadding,
     "stacking" -> stacking
   ).flatMap(HighchartKey.flatten)
 }
