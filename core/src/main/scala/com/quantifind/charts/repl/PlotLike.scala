@@ -61,23 +61,51 @@ trait Plottable[T] extends PlotLike[T] {
 }
 
 /**
- * Maintains the server state
+ * Maintains the server statex
  * @tparam T : a Plotting type : Highchart or Vega
  */
 trait WebPlot[T] extends Plottable[T] {
 
-  val serverRootFileName = s"index-${System.currentTimeMillis()}.html"
-  val port = Port.any
-  var serverMode = false
-  var firstOpenWindow = false
+  private var serverRootFileName = s"index-${System.currentTimeMillis()}.html"
+  private var port = Port.any
+  private var serverMode = false
+  private var firstOpenWindow = false
 
-  var serverRootFile = new File(serverRootFileName)
-  val localFile = java.io.File.createTempFile("scala-viz-", ".html")
+  private var serverRootFile = new File(serverRootFileName)
 
   var http: Option[Server] = None
   var plotServer: Option[PlotServer] = None
 
-  startServer()
+  startWispServer()
+
+  /**
+   *
+   * @return
+   */
+  def getWispServerInfo(): (File, Int, Boolean) = {
+    (serverRootFile, port, serverMode)
+  }
+
+  def setWispServerFile(filename: String): Unit = {
+    stopWispServer
+    this.serverRootFileName = filename
+    this.serverRootFile = new File(serverRootFileName)
+    startWispServer()
+  }
+
+  def setWispServerFile(file: File): Unit = {
+    setWispServerFile(file.getAbsolutePath())
+  }
+
+  def setWispPort(port: Int): Unit = {
+    stopWispServer
+    this.port = port
+    startWispServer()
+  }
+
+  def disableOpenWindow(): Unit = {
+    this.firstOpenWindow = true
+  }
 
   def openWindow(link: String) = {
    import sys.process._
@@ -111,7 +139,7 @@ trait WebPlot[T] extends Plottable[T] {
    * Assigns a random port
    * @param message
    */
-  def startServer(message: String = s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}/${serverRootFileName}") {
+  def startWispServer(message: String = s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}/${serverRootFileName}") {
     if (!serverMode) {
       serverMode = true
       val ps = new PlotServer
@@ -128,7 +156,7 @@ trait WebPlot[T] extends Plottable[T] {
    * Deletes the resulting index-*.html and stops the server
    * Currently the index-*.html file persists in the $cwd if stopServer is not called.
    */
-  def stopServer {
+  def stopWispServer {
     if (serverMode) {
       serverRootFile.delete()
       // satisfy the promise, to avoid exception on close
@@ -142,7 +170,7 @@ trait WebPlot[T] extends Plottable[T] {
   }
 
   def plot(t: T): T = {
-    startServer()
+    startWispServer()
     t
   }
 }
