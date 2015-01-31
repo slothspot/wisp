@@ -5,6 +5,7 @@ import java.io.{PrintWriter, File}
 import com.quantifind.charts.highcharts.{Series, SeriesType, Highchart}
 import com.quantifind.charts.highcharts._
 import scala.concurrent.Promise
+import scala.util.Random
 
 /**
  * User: austin
@@ -14,21 +15,28 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
   /**
    * Iterates through the plots and builds the necessary javascript and html around them.
+   * returns the files contents as a string
    */
-  def plotAll(): Unit = {
+  def buildHtmlFile(): String = {
+    val sb = new StringBuilder()
+    sb.append(jsHeader)
+    sb.append(reloadJs)
+    sb.append("</head>")
+    sb.append("<body>")
+    plots.map(highchartsContainer).foreach(sb.append)
+    sb.append("</body>")
+    sb.append("</html>")
+
+    sb.toString()
+  }
+
+  def plotAll(): String = {
+
+    val fileContents = buildHtmlFile()
+
     val temp = File.createTempFile("highcharts", ".html")
     val pw = new PrintWriter(temp)
-    pw.print(jsHeader)
-
-    plots.zipWithIndex.foreach { case(plot, index) =>
-      pw.println(highchartsContainer(plot.toJson, index))
-    }
-
-    pw.print(reload)
-    (0 until plots.size).foreach(index => pw.println(containerDivs(index)))
-    pw.print(jsFooter)
-    pw.flush()
-    pw.close()
+    pw.print(fileContents)
 
     plotServer.foreach{ps =>
       ps.p.success(())
@@ -48,6 +56,8 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     openFirstWindow(link)
 
     println(s"Output written to $link (CMD + Click link in Mac OSX).")
+
+    fileContents
   }
 
   override def plot(t: Highchart): Highchart = {
@@ -59,7 +69,9 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
   }
 
   def reloadJs =
-      "$.ajax({url: '/check', dataType: 'jsonp', complete: function(){location.reload()}})"
+    """
+      |<script type="text/javascript">$.ajax({url: '/check', dataType: 'jsonp', complete: function(){location.reload()}})</script>
+    """.stripMargin
 
   val jsHeader =
     """
@@ -70,43 +82,41 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
       |      Highchart
       |    </title>
       |    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      |    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-      |    <script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts.js"></script>
-      |    <script type="text/javascript" src="http://code.highcharts.com/4.0.4/modules/exporting.js"></script>
-      |
+    """.stripMargin +
+    wispJsImports
+
+  val wispJsImports: String =
+    """
+      |<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts.js"></script>
+      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/modules/exporting.js"></script>
     """.stripMargin
 
+  def highchartsContainer(hc: Highchart): String = {
+    val hash = hc.hashCode()
+    val containerId = Random.nextInt(1e10.toInt) + (if(hash < 0) -1 else 1) * hash // salt the hash to allow duplicates
+    highchartsContainer(hc.toJson, containerId)
+  }
+
   def highchartsContainer(json: String, index: Int): String =
+    containerDivs(index) + "\n" +
     """
       |    <script type="text/javascript">
       |        $(function() {
       |            $('#container%s').highcharts(
     """.stripMargin.format(index.toString) +
-      """
-        |                %s
-        |            );
-        |        });
-        |    </script>
-        |
-      """.stripMargin.format(json)
-
-  val reload =
-    s"""
-        |  <script type="text/javascript">${reloadJs}</script>
-        |  </head>
-        |  <body>
-      """.stripMargin
+    """
+      |                %s
+      |            );
+      |        });
+      |    </script>
+      |
+    """.stripMargin.format(json)
 
   def containerDivs(index: Int) =
     s"""
-        |    <div id="container%s" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-      """.stripMargin.format(index.toString)
-
-  val jsFooter =
-    """
-      |</body>
-      |</html>
-    """.stripMargin
+      |    <div id="container%s" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    """.stripMargin.format(index.toString)
 }
 
 /**
