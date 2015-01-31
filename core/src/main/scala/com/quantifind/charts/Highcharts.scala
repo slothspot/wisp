@@ -26,6 +26,10 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
   implicit def mkTrueTriplet[A, B, C: Numeric](data: Iterable[(A, B, C)]) = new TrueTripletBinned(data)
   implicit def mkCoupledTriplet[A, B, C: Numeric](data: Iterable[((A, B), C)]) = new CoupledTripletBinned(data)
 
+  def stopServer = stopWispServer
+  def startServer() = startWispServer()
+  def setPort(port: Int) = setWispPort(port)
+
   def area[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
     xyToSeries(xr, yr, SeriesType.area)
