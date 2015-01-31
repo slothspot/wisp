@@ -30,13 +30,15 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     sb.toString()
   }
 
-  def plotAll(): String = {
+  def plotAll(): Unit = {
 
     val fileContents = buildHtmlFile()
 
     val temp = File.createTempFile("highcharts", ".html")
     val pw = new PrintWriter(temp)
     pw.print(fileContents)
+    pw.flush()
+    pw.close()
 
     plotServer.foreach{ps =>
       ps.p.success(())
@@ -56,8 +58,6 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
     openFirstWindow(link)
 
     println(s"Output written to $link (CMD + Click link in Mac OSX).")
-
-    fileContents
   }
 
   override def plot(t: Highchart): Highchart = {
@@ -73,6 +73,13 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
       |<script type="text/javascript">$.ajax({url: '/check', dataType: 'jsonp', complete: function(){location.reload()}})</script>
     """.stripMargin
 
+  val wispJsImports: String =
+    """
+      |<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts.js"></script>
+      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/modules/exporting.js"></script>
+    """.stripMargin
+
   val jsHeader =
     """
       |<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -84,13 +91,6 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
       |    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     """.stripMargin +
     wispJsImports
-
-  val wispJsImports: String =
-    """
-      |<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts.js"></script>
-      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/modules/exporting.js"></script>
-    """.stripMargin
 
   def highchartsContainer(hc: Highchart): String = {
     val hash = hc.hashCode()
