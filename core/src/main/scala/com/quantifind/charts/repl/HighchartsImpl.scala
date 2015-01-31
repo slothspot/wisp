@@ -49,7 +49,6 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
     def link =
       if (serverMode) {
-        println("ENTERED SERVER MODE")
         temp.renameTo(serverRootFile)
         s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}"
       }
