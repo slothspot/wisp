@@ -4,9 +4,6 @@ import com.quantifind.charts.highcharts._
 import com.quantifind.charts.repl._
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
-import Highchart._
-import org.apache.commons.math3.special.Gamma
-import org.apache.commons.math3.util.ArithmeticUtils
 
 /**
 * User: austin
