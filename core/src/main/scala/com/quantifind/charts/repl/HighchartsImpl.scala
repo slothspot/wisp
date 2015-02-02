@@ -142,7 +142,17 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
   def yAxis(label: String): Highchart = {
     val plot = plots.head
     plots = plots.tail
-    val newPlot = plot.copy(yAxis = label)
+    val newPlot = plot.copy(yAxis = plot.yAxis.map {
+      axisArray => axisArray.map { _.copy(title = label) }
+    })
+    super.plot(newPlot)
+  }
+  def yAxisType(axisType: String): Highchart = {
+    val plot = plots.head
+    plots = plots.tail
+    val newPlot = plot.copy(yAxis = plot.yAxis.map {
+      axisArray => axisArray.map { _.copy(axisType = axisType) }
+    })
     super.plot(newPlot)
   }
   def title(label: String): Highchart = {
