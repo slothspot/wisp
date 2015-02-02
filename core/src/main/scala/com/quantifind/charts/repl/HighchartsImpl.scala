@@ -145,6 +145,16 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
     val newPlot = plot.copy(yAxis = label)
     super.plot(newPlot)
   }
+  // TODO better than seriesName?
+  // Change the series name of the last series of the most recent plot
+  def seriesName(label: String): Highchart = {
+    val plot = plots.head
+    plots = plots.tail
+    val seqSeries = plot.series.toSeq
+    val newSeries = (seqSeries.dropRight(1) :+ seqSeries.last.copy(name = Some(label))).toTraversable
+    val newPlot = plot.copy(series = newSeries)
+    super.plot(newPlot)
+  }
   def title(label: String): Highchart = {
     val plot = plots.head
     plots = plots.tail
@@ -160,9 +170,9 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
     val newPlot = plot.copy(series = newSeries)
     super.plot(newPlot)
   }
-  def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type) =
+  def xyToSeries[T1: Numeric, T2: Numeric](x: Iterable[T1], y: Iterable[T2], chartType: SeriesType.Type) = {
     plot(Highchart(Series(x.zip(y).toSeq, chart = chartType)))
-
+  }
   def stack(stackType: Stacking.Type = Stacking.normal): Highchart = {
     val plot = plots.head
     plots = plots.tail
