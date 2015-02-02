@@ -5,6 +5,8 @@ import com.quantifind.charts.repl._
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
 import Highchart._
+import org.apache.commons.math3.special.Gamma
+import org.apache.commons.math3.util.ArithmeticUtils
 
 /**
 * User: austin
@@ -51,18 +53,52 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
     xyToSeries(xr, yr, SeriesType.column)
   }
 
-  def gaussian(mean: Double, variance: Double, min: Double = Double.MaxValue, max: Double = Double.MaxValue, points: Int = 1000) = { // todo number of points? and center points at mean or 0?
+  def bernoulli(p: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
+    binomial(p, 1, min, max, points)
+  }
+
+  def binomial(n: Double, p: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
+    // todo check n < 140 or don't use gamma function
+    val stddev = math.sqrt(n*p*(1-p))
+    val right = math.min(n, 140) // 141 is the largest valid integral Gamma.gamma() argument
+    val left = if(min != Double.MaxValue) math.max(min, right / points) else right / points // 0 is not defined for gamma(0)
+    def binomialPoint(k: Double) = {
+      (math.pow(p, k) * math.pow(1 - p, n-k)) * (Gamma.gamma(n+1) / (Gamma.gamma(k+1) * Gamma.gamma((n-k)+1)))
+    }
+    val stepSize = (right - left) / points
+    val data = (left to right by stepSize).map(p => p -> binomialPoint(p))
+    val hc = Highchart(Series(data, chart = SeriesType.line, name = s"binomial($n, $p)"))
+    plot(hc)
+  }
+
+  def gaussian(mean: Double, variance: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = { // todo number of points? and center points at mean or 0?
+    // todo check input
     val rootTwoPi = math.sqrt(2*math.Pi)
     val twoVariance = 2 * variance
     val stddev = math.sqrt(variance)
     def gaussianPoint(p: Double) = {
       (1 / (stddev*rootTwoPi)) * math.pow(math.E, - math.pow(p - mean, 2) / twoVariance)
     }
-    val left = if(min != Double.MaxValue) min else mean - 2.5*stddev
-    val right = if(max != Double.MaxValue) max else mean + 2.5*stddev
+    val left = if(min != Double.MaxValue) min else mean - 3*stddev
+    val right = if(max != Double.MinValue) max else mean + 3*stddev
     val stepSize = (right - left) / points
     val data = (left to right by stepSize).map(p => p -> gaussianPoint(p))
     val hc = Highchart(Series(data, chart = SeriesType.line, name = s"gaussian($mean, $variance)"))
+    plot(hc)
+  }
+
+  def poisson(lambda: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
+    // todo check lambda < 140
+    val stddev = math.sqrt(lambda)
+    val right = math.min(if(max != Double.MinValue) max else lambda + 3*stddev, 140) // 141 is the largest valid integral Gamma.gamma() argument
+    val left = if(min != Double.MaxValue) math.max(min, right / points) else right / points // 0 is not defined for gamma(0)
+    val stepSize = (right - left) / points
+    val eToTheNegativeLambda = math.pow(math.E, -lambda)
+    def poissonPoint(k: Double) = { // Double
+      math.pow(lambda, k) * eToTheNegativeLambda / Gamma.gamma(k+1)
+    }
+    val data = (left to right by stepSize).map(k => k -> poissonPoint(k))
+    val hc = Highchart(Series(data, chart = SeriesType.line, name = s"poisson($lambda)"))
     plot(hc)
   }
 
