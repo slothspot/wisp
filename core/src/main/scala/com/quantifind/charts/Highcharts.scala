@@ -1,9 +1,10 @@
 package com.quantifind.charts
 
-import com.quantifind.charts.highcharts.{Highchart, Histogram, LeastSquareRegression, SeriesType}
+import com.quantifind.charts.highcharts._
 import com.quantifind.charts.repl._
 import scala.collection.immutable.ListMap
 import scala.language.implicitConversions
+import Highchart._
 
 /**
 * User: austin
@@ -48,6 +49,21 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
   def column[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
     xyToSeries(xr, yr, SeriesType.column)
+  }
+
+  def gaussian(mean: Double, variance: Double, min: Double = Double.MaxValue, max: Double = Double.MaxValue, points: Int = 1000) = { // todo number of points? and center points at mean or 0?
+    val rootTwoPi = math.sqrt(2*math.Pi)
+    val twoVariance = 2 * variance
+    val stddev = math.sqrt(variance)
+    def gaussianPoint(p: Double) = {
+      (1 / (stddev*rootTwoPi)) * math.pow(math.E, - math.pow(p - mean, 2) / twoVariance)
+    }
+    val left = if(min != Double.MaxValue) min else mean - 2.5*stddev
+    val right = if(max != Double.MaxValue) max else mean + 2.5*stddev
+    val stepSize = (right - left) / points
+    val data = (left to right by stepSize).map(p => p -> gaussianPoint(p))
+    val hc = Highchart(Series(data, chart = SeriesType.line, name = s"gaussian($mean, $variance)"))
+    plot(hc)
   }
 
   def histogram[A: Numeric](data: Iterable[A], numBins: Int) = {
