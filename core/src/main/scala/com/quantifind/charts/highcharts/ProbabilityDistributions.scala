@@ -15,6 +15,7 @@ object ProbabilityDistributions {
     hc.copy(series = hc.series.map(s => s.copy(name = Some(s"bernoulli($p)"))))
   }
 
+  // TODO, small n
   def binomial(n: Int, p: Double, min: Int = 0, max: Int = Int.MinValue) = {
     val stddev = math.sqrt(n*p*(1-p))
     val left = min
