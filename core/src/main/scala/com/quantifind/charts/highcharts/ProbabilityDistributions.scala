@@ -1,6 +1,7 @@
 package com.quantifind.charts.highcharts
 
 import com.quantifind.charts.highcharts.Highchart._
+import org.apache.commons.math3.special.Gamma
 import org.apache.commons.math3.util.ArithmeticUtils
 
 /**
@@ -22,6 +23,21 @@ object ProbabilityDistributions {
     }
     val data = (left to right).map(p => p -> binomialPoint(p))
     Highchart(Series(data, chart = SeriesType.line, name = s"binomial($n, $p)"))
+  }
+
+  def chisquared(k: Int, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
+    val kOver2 = k/2d
+    val stddev = math.sqrt(kOver2)
+    val right = if(max != Double.MinValue) max else k + 3*stddev
+    val left = math.max(right/points, if(min != Double.MaxValue) min else k - 3*stddev)
+    val stepSize = (right - left) / points
+    val constant = 1 / (math.pow(2, kOver2)*Gamma.gamma(kOver2))
+    println("CONSTANT: " + constant)
+    def chisquaredPoint(x: Double) = {
+      constant * math.pow(x, kOver2 - 1) * math.pow(math.E, -x/2)
+    }
+    val data = (left to right by stepSize).map(x => x -> chisquaredPoint(x))
+    Highchart(Series(data, chart = SeriesType.line, name = s"chisquared($k)"))
   }
 
   // Hui convinced me that the convention is stddev for gaussian and variance for normal, but I don't know if that's true
