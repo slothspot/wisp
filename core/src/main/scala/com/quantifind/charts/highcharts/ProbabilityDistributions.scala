@@ -21,7 +21,7 @@ object ProbabilityDistributions {
       (math.pow(p, k) * math.pow(1 - p, n-k)) * ArithmeticUtils.binomialCoefficient(n, k)
     }
     val data = (left to right).map(p => p -> binomialPoint(p))
-    Highchart(Series(data, chart = SeriesType.scatter, name = s"binomial($n, $p)"))
+    Highchart(Series(data, chart = SeriesType.line, name = s"binomial($n, $p)"))
   }
 
   // Hui convinced me that the convention is stddev for gaussian and variance for normal, but I don't know if that's true
@@ -51,7 +51,7 @@ object ProbabilityDistributions {
       math.pow(lambda, k) * eToTheNegativeLambda / ArithmeticUtils.factorial(k)
     }
     val data = (left to right).map(k => k -> poissonPoint(k))
-    Highchart(Series(data, chart = SeriesType.scatter, name = s"poisson($lambda)"))
+    Highchart(Series(data, chart = SeriesType.line, name = s"poisson($lambda)"))
   }
 
   def zipf(N: Int, s: Double) = {
@@ -66,6 +66,6 @@ object ProbabilityDistributions {
       1 / (harmonicConstant * math.pow(k+q, s))
     }
     val data = (left to right).map(x => x -> zipfMandelbrotPoint(x))
-    Highchart(Series(data, chart = SeriesType.scatter, name = s"zipfMandelbrot($s, $N, $q)"))
+    Highchart(Series(data, chart = SeriesType.line, name = s"zipfMandelbrot($s, $N, $q)"))
   }
 }
