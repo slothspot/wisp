@@ -54,14 +54,18 @@ object ProbabilityDistributions {
     Highchart(Series(data, chart = SeriesType.scatter, name = s"poisson($lambda)"))
   }
 
-  def zipf(s: Double, min: Int = 0, max: Int = Int.MinValue) = {
-    val left = math.max(min, 1)
-    val right = if(max != Int.MinValue) max else 10 // TODO
-    val harmonicConstant = (left to right).map(n => math.pow(n, -s)).sum
-    def zipfPoint(k: Int) = {
-      1 / (harmonicConstant * math.pow(k, s))
+  def zipf(N: Int, s: Double) = {
+    zipfMandelbrot(N, s, 0)
+  }
+
+  def zipfMandelbrot(N: Int, s: Double, q: Double) = {
+    val left = 0
+    val right = N
+    val harmonicConstant = (left to right).map(n => math.pow(n+q, -s)).sum
+    def zipfMandelbrotPoint(k: Int) = {
+      1 / (harmonicConstant * math.pow(k+q, s))
     }
-    val data = (left to right).map(x => x -> zipfPoint(x))
-    Highchart(Series(data, chart = SeriesType.scatter, name = s"zipf($s, $right)"))
+    val data = (left to right).map(x => x -> zipfMandelbrotPoint(x))
+    Highchart(Series(data, chart = SeriesType.scatter, name = s"zipfMandelbrot($s, $N, $q)"))
   }
 }

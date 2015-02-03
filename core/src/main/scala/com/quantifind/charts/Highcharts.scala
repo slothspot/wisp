@@ -65,8 +65,11 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
   def poisson(lambda: Int, min: Int = 0, max: Int = Int.MinValue): Highchart =
     plot(ProbabilityDistributions.poisson(lambda, min, max))
 
-  def zipf(s: Double, min: Int = 0, max: Int = Int.MinValue) =
-    plot(ProbabilityDistributions.zipf(s, min, max))
+  def zipf(N: Int, s: Double) =
+    plot(ProbabilityDistributions.zipf(N, s))
+
+  def zipfMandelbrot(N: Int, s: Double, q: Double) =
+    plot(ProbabilityDistributions.zipfMandelbrot(N, s, q))
 
   def histogram[A: Numeric](data: Iterable[A], numBins: Int) = {
     val binCounts = binIterableNumBins(data, numBins).toBinned().toSeq
