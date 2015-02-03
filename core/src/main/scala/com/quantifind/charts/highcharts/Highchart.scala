@@ -363,19 +363,71 @@ case class Series(
   }
 }
 
-case class Data[X: Numeric, Y: Numeric](
-                                         x: X,
-                                         y: Y,
-                                         color: Option[Color.Type] = None,
-                                         //dataLabels
-                                         //events
-                                         // id
-                                         name: Option[String] = None
-                                         ) {
+trait Data[X, Y] {
+  def toServiceFormat: Map[String, Any]
+}
+
+object Data {
+  def apply[X: Numeric, Y: Numeric](
+                                     x: X,
+                                     y: Y,
+                                     color: Option[Color.Type] = None,
+                                     //dataLabels
+                                     //events
+                                     // id
+                                     name: Option[String] = None
+                                     ): DataPair[X, Y] = DataPair(x, y, color, name)
+
+  def apply[T: Numeric](
+                         x: Any, // TODO x type
+                         low: T,
+                         q1: T,
+                         median: T,
+                         q3: T,
+                         high: T
+                         // todo all the other options...
+                         ): DataBox[T] = DataBox(Some(x), low, q1, median, q3, high)
+
+  def apply[T: Numeric](
+                         low: T,
+                         q1: T,
+                         median: T,
+                         q3: T,
+                         high: T
+                         // todo all the other options...
+                         ): DataBox[T] = DataBox(None, low, q1, median, q3, high)
+}
+
+// Most series take in data points as (x, y)
+case class DataPair[X: Numeric, Y: Numeric](
+                                             x: X,
+                                             y: Y,
+                                             color: Option[Color.Type] = None,
+                                             //dataLabels
+                                             //events
+                                             // id
+                                             name: Option[String] = None
+                                             ) extends Data[X, Y] {
 
   def toServiceFormat = {
     Map("x" -> x, "y" -> y) ++
       Map("color" -> color, "name" -> name).flatMap{HighchartKey.flatten}
+  }
+}
+
+// Box plot takes in data as an array of size five: lower-whisker, lower-box, median, upper-box, upper-whisker
+case class DataBox[T: Numeric](
+                                x: Option[Any], // TODO x type
+                                low: T,
+                                q1: T,
+                                median: T,
+                                q3: T,
+                                high: T
+                                // todo all the other options...
+                                ) extends Data[T, T] {
+  def toServiceFormat = {
+    Map("low" -> low, "q1" -> q1, "median" -> median, "q3" -> q3, "high" -> high) ++
+      Map("x" -> x).flatMap{HighchartKey.flatten}
   }
 }
 
