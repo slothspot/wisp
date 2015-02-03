@@ -11,7 +11,8 @@ import org.apache.commons.math3.util.ArithmeticUtils
 object ProbabilityDistributions {
 
   def bernoulli(p: Double, min: Int = Int.MaxValue, max: Int = Int.MinValue) = {
-    binomial(1, p, min, max)
+    val hc = binomial(1, p, min, max)
+    hc.copy(series = hc.series.map(s => s.copy(name = Some(s"bernoulli($p)"))))
   }
 
   def binomial(n: Int, p: Double, min: Int = 0, max: Int = Int.MinValue) = {
@@ -25,23 +26,35 @@ object ProbabilityDistributions {
     Highchart(Series(data, chart = SeriesType.line, name = s"binomial($n, $p)"))
   }
 
+  def cauchy(x0: Double, gamma: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
+    // TODO disallow negative gamma
+    val left = if(min != Double.MaxValue) min else x0 - 3*gamma
+    val right = if(max != Double.MinValue) max else x0 + 3*gamma
+    val stepSize = (right-left) / points
+    def cauchyPoint(x: Double) = {
+      1 / (math.Pi*gamma*(1+ math.pow((x-x0) / gamma, 2)))
+    }
+    val data = (left to right by stepSize).map(x => x -> cauchyPoint(x))
+    Highchart(Series(data, chart = SeriesType.line, name = s"cauchy($x0, $gamma)"))
+  }
+
   def chisquared(k: Int, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
     val kOver2 = k/2d
     val stddev = math.sqrt(kOver2)
     val right = if(max != Double.MinValue) max else k + 3*stddev
     val left = math.max(right/points, if(min != Double.MaxValue) min else k - 3*stddev)
     val stepSize = (right - left) / points
+    val rootTwoPi = math.sqrt(2*math.Pi)
     val constant = 1 / (math.pow(2, kOver2)*Gamma.gamma(kOver2))
-    println("CONSTANT: " + constant)
     def chisquaredPoint(x: Double) = {
       constant * math.pow(x, kOver2 - 1) * math.pow(math.E, -x/2)
     }
     val data = (left to right by stepSize).map(x => x -> chisquaredPoint(x))
-    Highchart(Series(data, chart = SeriesType.line, name = s"chisquared($k)"))
+    Highchart(Series(data, chart = SeriesType.line, name = s"chi-squared($k)"))
   }
 
   // Hui convinced me that the convention is stddev for gaussian and variance for normal, but I don't know if that's true
-  def gaussian(mean: Double, stddev: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = { // todo number of points? and center points at mean or 0?
+  def gaussian(mean: Double, stddev: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
   // todo check input
   val rootTwoPi = math.sqrt(2*math.Pi)
     val twoVariance = 2 * stddev * stddev
@@ -82,6 +95,6 @@ object ProbabilityDistributions {
       1 / (harmonicConstant * math.pow(k+q, s))
     }
     val data = (left to right).map(x => x -> zipfMandelbrotPoint(x))
-    Highchart(Series(data, chart = SeriesType.line, name = s"zipfMandelbrot($s, $N, $q)"))
+    Highchart(Series(data, chart = SeriesType.line, name = s"zipf-mandelbrot($s, $N, $q)"))
   }
 }

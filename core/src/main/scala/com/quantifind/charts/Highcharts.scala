@@ -56,6 +56,10 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
   def binomial(n: Int, p: Double, min: Int = 0, max: Int = Int.MinValue) =
     plot(ProbabilityDistributions.binomial(n, p, min, max))
 
+  def cauchy(x0: Double, gamma: Double, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
+    plot(ProbabilityDistributions.cauchy(x0, gamma, min, max, points))
+  }
+
   def chisquared(k: Int, min: Double = Double.MaxValue, max: Double = Double.MinValue, points: Int = 1000) = {
     plot(ProbabilityDistributions.chisquared(k, min, max, points))
   }
