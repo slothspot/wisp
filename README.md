@@ -84,6 +84,10 @@ Stylistic changes:
 	unhold                             plots the next plot in a new chart
 	title(String)                      add a title to the most recent plot
 	xAxis(String)                      adds a label to the x-axis
+	xAxisType([                        updates the x-axis type
+	  "linear", "logarithmic",
+	  "datetime", "category"
+	])
 	yAxis(String)                      adds a label to y-axis
 	yAxisType([                        updates the y-axis type
 	  "linear", "logarithmic",

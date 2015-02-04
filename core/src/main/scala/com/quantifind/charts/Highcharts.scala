@@ -105,6 +105,12 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
       List("unhold") -> "plots the next plot in a new chart",
       List("title(String)") -> "add a title to the most recent plot",
       List("xAxis(String)") -> "adds a label to the x-axis",
+      List(
+        "xAxisType([",
+        """"linear", "logarithmic",""",
+        """"datetime", "category"""",
+        "])"
+      ) -> "updates the x-axis type",
       List("yAxis(String)") -> "adds a label to y-axis",
       List(
         "yAxisType([",
