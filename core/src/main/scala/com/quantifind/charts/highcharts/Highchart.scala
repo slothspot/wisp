@@ -316,7 +316,7 @@ case class ToolTip(
                     valuePrefix: Option[String] = None,
                     valueSuffix: Option[String] = None,
                     xDateFormat: Option[String] = None
-                    ) extends HighchartKey("ToolTip") {
+                    ) extends HighchartKey("tooltip") {
 
   def toServiceFormat =
     Map(
