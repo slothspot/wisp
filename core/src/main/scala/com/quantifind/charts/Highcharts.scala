@@ -113,7 +113,8 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
         "])"
       ) -> "updates the y-axis type",
       List("legend(Iterable[String])") -> "adds a legend to the most recent plot",
-      List("""stack(["normal", "percent"])""") -> "stacks bars, columns, and lines relative to each other"
+      List("""stack(["normal", "percent"])""") -> "stacks bars, columns, and lines relative to each other",
+      List("unstack") -> "remove stacking"
     ).foreach { case (methodLines, description) =>
       println("\t%-35s%s".format(methodLines(0), description))
       methodLines.slice(1, methodLines.length - 1).foreach(line => println("\t  %s".format(line)))
