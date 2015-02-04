@@ -85,6 +85,10 @@ Stylistic changes:
 	title(String)                      add a title to the most recent plot
 	xAxis(String)                      adds a label to the x-axis
 	yAxis(String)                      adds a label to y-axis
+	yAxisType([                        updates the y-axis type
+	  "linear", "logarithmic",
+	  "datetime", "category"
+	])
 	legend(Iterable[String])           adds a legend to the most recent plot
 	stack(["normal", "percent"])       stacks bars, columns, and lines relative to each other
 
