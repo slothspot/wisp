@@ -147,7 +147,7 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
     })
     super.plot(newPlot)
   }
-  def yAxisType(axisType: String): Highchart = {
+  def yAxisType(axisType: AxisType.Type): Highchart = {
     val plot = plots.head
     plots = plots.tail
     val newPlot = plot.copy(yAxis = plot.yAxis.map {
