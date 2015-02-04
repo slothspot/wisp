@@ -149,6 +149,10 @@ trait HighchartsStyles extends Hold[Highchart] with Labels[Highchart] with WebPl
   }
   def yAxisType(axisType: AxisType.Type): Highchart = {
     val plot = plots.head
+    if (!AxisType.values.contains(axisType)) {
+      println(s"Not an acceptable axis type. Options are: ${AxisType.values.mkString(", ")}.")
+      return plot
+    }
     plots = plots.tail
     val newPlot = plot.copy(yAxis = plot.yAxis.map {
       axisArray => axisArray.map { _.copy(axisType = axisType) }
