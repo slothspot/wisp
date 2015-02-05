@@ -8,72 +8,6 @@ object PlotOptions {
   val name = "plotOptions"
 }
 
-object BoxplotPlotOptions {
-  def apply(
-     allowPointSelect: Option[Boolean] = None,
-     color: Option[Color.Type] = None,
-     colorByPoint: Option[Boolean] = None,
-     colors: Option[Array[Color.Type]] = None,
-     cursor: Option[Boolean] = None,
-     enableMouseTracking: Option[Boolean] = None,
-     events: Option[Events] = None,
-     fillColor: Option[Color.Type] = None,
-     groupPadding: Option[Double] = None,
-     lineWidth: Option[Int] = None,
-     linkedTo: Option[String] = None,
-     mediaWidth: Option[Int] = None,
-     medianColor: Option[Color.Type] = None,
-     point: Option[Point] = None,
-     pointInterval: Option[Double] = None,
-     pointRange: Option[Int] = None,
-     pointWidth: Option[Int] = None,
-     selected: Option[Boolean] = None,
-     showCheckbox: Option[Boolean] = None,
-     showInLegend: Option[Boolean] = None,
-     stemColor: Option[Color.Type] = None,
-     stemDashStyle: Option[String] = None,
-     stemWidth: Option[Int] = None,
-     stickyTracking: Option[Boolean] = None,
-     tooltip: Option[ToolTip] = None,
-     visible: Option[Boolean] = None,
-     whiskerColor: Option[Color.Type] = None,
-     whiskerLength: Option[Double] = None,
-     whiskerWidth: Option[Int] = None
-  ): PlotOptionKey = {
-    new PlotOptionKey(
-      allowPointSelect = allowPointSelect,
-      color = color,
-      colorByPoint = colorByPoint,
-      colors = colors,
-      cursor = cursor,
-      enableMouseTracking = enableMouseTracking,
-      events = events,
-      fillColor = fillColor,
-      groupPadding = groupPadding,
-      lineWidth = lineWidth,
-      linkedTo = linkedTo,
-      mediaWidth = mediaWidth,
-      medianColor = medianColor,
-      point = point,
-      pointInterval = pointInterval,
-      pointRange = pointRange,
-      pointWidth = pointWidth,
-      selected = selected,
-      showCheckbox = showCheckbox,
-      showInLegend = showInLegend,
-      stemColor = stemColor,
-      stemDashStyle = stemDashStyle,
-      stemWidth = stemWidth,
-      stickyTracking = stickyTracking,
-      tooltip = tooltip,
-      visible = visible,
-      whiskerColor = whiskerColor,
-      whiskerLength = whiskerLength,
-      whiskerWidth = whiskerWidth
-    )
-  }
-}
-
 // These are overlapping options, but are well over 22 options.
 case class PlotOptions(
                         area: Option[PlotOptionKey] = None,
@@ -126,65 +60,6 @@ case class PlotOptions(
     ).flatMap(HighchartKey.flatten)
   }
 }
-
-//class BoxplotPlotOptions(
-//                          var color: Option[Color.Type] = None,
-//                          var colorByPoint: Option[Boolean] = None,
-//                          var colors: Option[Array[Color.Type]] = None,
-//                          // depth
-//                          // edgeColor
-//                          // edgeWidth
-//                          var fillColor: Option[Color.Type] = None,
-//                          var groupPadding: Option[Double] = None,
-//                          // groupZPadding
-//                          // grouping
-//                          var lineWidth: Option[Int] = None,
-//                          var medianColor: Option[Color.Type] = None,
-//                          var mediaWidth: Option[Int] = None,
-//                          // negativeColor
-//                          var pointInterval: Option[Double] = None,
-////                          val pointPlacement: Option[Any] = None // can be null, "on", or "between", or numeric
-//                          var pointRange: Option[Int] = None,
-//                          var pointWidth: Option[Int] = None,
-//                          var selected: Option[Boolean] = None,
-//                          var showCheckbox: Option[Boolean] = None,
-//                          var stemColor: Option[Color.Type] = None,
-//                          var stemDashStyle: Option[String] = None, // Solid, ...?
-//                          var stemWidth: Option[Int] = None, // can it be a decimal?
-//                          // turboThreshold
-//                          var whiskerColor: Option[Color.Type] = None,
-//                          var whiskerLength: Option[Double] = None, // percentage, can it be a pixel integer?
-//                          var whiskerWidth: Option[Int] = None // pixel, can it be a percentage?
-//                          ) extends PlotOptionsBase {
-//  override def toServiceFormat = {
-//    super.toServiceFormat ++ Map()
-//  }
-//}
-//
-//trait PlotOptionsBase {
-//  var allowPointSelect: Option[Boolean] = None
-//  var cursor: Option[Boolean] = None // actually 'pointer'
-//  var enableMouseTracking: Option[Boolean] = None
-//  var events: Option[Events] = None
-//  var linkedTo: Option[String] = None // link to another series by the series id (<-- not the same as name but we can make it name, probably)
-//  var point: Option[Point] = None
-////  val selected: Option[Boolean] = None // related to showCheckbox for selecting a series, not sure it's a default
-//  var showInLegend: Option[Boolean] = None
-//  var stickyTracking: Option[Boolean] = None // If events are defined, whether to maintain event after mouse leaves plot area
-//  var tooltip: Option[ToolTip] = None // tooltip object
-//  var visible: Option[Boolean] = None
-//
-//  def toServiceFormat: Map[String, Any] = Map(
-//    "allowPointSelect" -> allowPointSelect,
-//    "cursor" -> cursor,
-//    "enableMouseTrackinge" -> enableMouseTracking,
-//    "linkedTo" -> linkedTo,
-//    "showInLegend" -> showInLegend,
-//    "stickyTracking" -> stickyTracking,
-//    "visible" -> visible
-//  ) ++
-//    Seq(events, point, tooltip).flatMap(HighchartKey.optionToServiceFormat)
-//}
 
 case class Point(
                   events: Option[Events] = None
