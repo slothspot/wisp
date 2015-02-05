@@ -27,22 +27,22 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
   implicit def mkCoupledTriplet[A, B, C: Numeric](data: Iterable[((A, B), C)]) = new CoupledTripletBinned(data)
 
   // for boxplot
-  implicit def mkBoxedDataBoxes[T: Numeric](data: Iterable[(T, T, T, T, T)]): Iterable[DataBox[T]] = {
+  implicit def mkBoxedDataBoxes[T: Numeric](data: Iterable[(T, T, T, T, T)]): Iterable[BoxplotData[T]] = {
     data.map{case(low, q1, median, q3, high) => Data(low, q1, median, q3, high)}
   }
-  implicit def mkBoxedDataXBoxes[T: Numeric](data: Iterable[(Any, T, T, T, T, T)]): Iterable[DataBox[T]] = {
+  implicit def mkBoxedDataXBoxes[T: Numeric](data: Iterable[(Any, T, T, T, T, T)]): Iterable[BoxplotData[T]] = {
     data.map{case(x, low, q1, median, q3, high) => Data(x, low, q1, median, q3, high)}
   }
-  implicit def mkBoxedDataIterable[T: Numeric](data: Iterable[Iterable[T]]): Iterable[DataBox[T]] = {
+  implicit def mkBoxedDataIterable[T: Numeric](data: Iterable[Iterable[T]]): Iterable[BoxplotData[T]] = {
     data.filter(_.size == 5).map(_.toList).map{itr => Data(itr(0), itr(1), itr(2), itr(3), itr(4))}
   }
-  implicit def mkBoxedDataArray[T: Numeric](data: Iterable[Array[T]]): Iterable[DataBox[T]] = {
+  implicit def mkBoxedDataArray[T: Numeric](data: Iterable[Array[T]]): Iterable[BoxplotData[T]] = {
     data.filter(_.size == 5).map{itr => Data(itr(0), itr(1), itr(2), itr(3), itr(4))}
   }
-  implicit def mkBoxedDataXIterable[T: Numeric](data: Iterable[(Any, Iterable[T])]): Iterable[DataBox[T]] = {
+  implicit def mkBoxedDataXIterable[T: Numeric](data: Iterable[(Any, Iterable[T])]): Iterable[BoxplotData[T]] = {
     data.filter(_._2.size == 5).map{case(x, itr) => x -> itr.toList}.map{case(x, itr) => Data(x, itr(0), itr(1), itr(2), itr(3), itr(4))}
   }
-  implicit def mkBoxedDataXArray[T: Numeric](data: Iterable[(Any, Array[T])]): Iterable[DataBox[T]] = {
+  implicit def mkBoxedDataXArray[T: Numeric](data: Iterable[(Any, Array[T])]): Iterable[BoxplotData[T]] = {
     data.filter(_._2.size == 5).map{case(x, itr) => Data(x, itr(0), itr(1), itr(2), itr(3), itr(4))}
   }
 
@@ -65,7 +65,7 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
     xyToSeries(xr, yr, SeriesType.bar)
   }
 
-  def boxplot[T: Numeric](data: Iterable[DataBox[T]]) = {
+  def boxplot[T: Numeric](data: Iterable[BoxplotData[T]]) = {
     plot(Highchart(series = Seq(Series(data = data, chart = Some(SeriesType.boxplot)))))
   }
 

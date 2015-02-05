@@ -386,7 +386,7 @@ object Data {
                          q3: T,
                          high: T
                          // todo all the other options...
-                         ): DataBox[T] = DataBox(Some(x), low, q1, median, q3, high)
+                         ): BoxplotData[T] = BoxplotData(Some(x), low, q1, median, q3, high)
 
   def apply[T: Numeric](
                          low: T,
@@ -395,7 +395,7 @@ object Data {
                          q3: T,
                          high: T
                          // todo all the other options...
-                         ): DataBox[T] = DataBox(None, low, q1, median, q3, high)
+                         ): BoxplotData[T] = BoxplotData(None, low, q1, median, q3, high)
 }
 
 // Most series take in data points as (x, y)
@@ -416,7 +416,7 @@ case class DataPair[X: Numeric, Y: Numeric](
 }
 
 // Box plot takes in data as an array of size five: lower-whisker, lower-box, median, upper-box, upper-whisker
-case class DataBox[T: Numeric](
+case class BoxplotData[T: Numeric](
                                 x: Option[Any], // TODO x type
                                 low: T,
                                 q1: T,
