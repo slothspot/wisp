@@ -57,7 +57,7 @@ case class PlotOptions(
       "solidgauge" -> solidgauge,
       "spline" -> spline,
       "waterfall" -> waterfall
-    ).flatMap(HighchartKey.flatten)
+    ).flatMap{case(name, pokOpt) => pokOpt.map(pok => name -> pok.toServiceFormat)}
   }
 }
 
@@ -142,7 +142,7 @@ class PlotOptionKey( // todo - many more fields
                      val whiskerColor: Option[Color.Type] = None,
                      val whiskerLength: Option[Double] = None, // percentage, can it be a pixel integer? TODO
                      val whiskerWidth: Option[Int] = None // pixel, can it be a percentage? TODO
-                     ) {
+                     ) extends HighchartKey("") {
   
   def toServiceFormat = Map(
     "allowPointSelect" -> allowPointSelect,

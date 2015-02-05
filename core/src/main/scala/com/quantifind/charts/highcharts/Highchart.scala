@@ -145,17 +145,20 @@ case class Highchart(
 
     // Because we want to default to turboThreshold off (0) we control it as a boolean at the top-most level
     // As otherwise it is a per-type plotOption
-    val turboOutput: Map[String, Any] =
+    val turboOutput: Map[String, Map[String, Any]] =
       if(setTurboThreshold) {
         series.filter(_.chart != Some(SeriesType.pie)).flatMap(_.chart).map { s =>
           s -> Map("turboThreshold" -> 0)
         }.toMap
-      } else Map.empty[String, Any]
+      } else Map.empty[String, Map[String, Any]]
 
     // Todo: can we do better?
     // Check if it exists
     val finalPlotOption = if(plotOptions.isDefined) {
-      Map(PlotOptions.name -> {optionToServiceFormat(plotOptions)(PlotOptions.name).asInstanceOf[Map[String, Any]] ++ turboOutput})
+      val plotOptionsMap = optionToServiceFormat(plotOptions)(PlotOptions.name).asInstanceOf[Map[String, Map[String, Any]]]
+      val keys = plotOptionsMap.keySet ++ turboOutput.keySet
+      val combinedMap = keys.map{key => key -> (plotOptionsMap.getOrElse(key, Map()) ++ turboOutput.getOrElse(key, Map()))}.toMap
+      Map(PlotOptions.name -> combinedMap).asInstanceOf[Map[String, Any]]
     } else {
       Map(PlotOptions.name -> turboOutput)
     }
