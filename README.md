@@ -2,6 +2,8 @@
 It focuses on existing web-based plotting libraries, and strives to bring the power and flexibility of web-based plotting
 tools to the scala console, while preserving an at-your-finger-tips feel readily found in matlab, R, and many other languages.
 
+![Wisp Logo](https://raw.github.com/quantifind/wisp/master/images/wisp_logo_markOnly_color.png)
+
 [Watch the introductory video](https://www.youtube.com/watch?v=LZH9rCEP-6w)
 
 <!---[![Build Status](https://travis-ci.org/quantifind/Wisp.svg?branch=master)](https://travis-ci.org/quantifind/Wisp)--->
