@@ -47,7 +47,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
     val (serverRootFile, port, serverMode) = getWispServerInfo()
 
-    def link =
+    val link =
       if (serverMode) {
         temp.renameTo(serverRootFile)
         s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}"
