@@ -1,6 +1,7 @@
 package com.quantifind.charts.repl
 
 import java.io.{PrintWriter, File}
+import java.nio.file.Files
 
 import com.quantifind.charts.highcharts.{Series, SeriesType, Highchart}
 import com.quantifind.charts.highcharts._
@@ -49,7 +50,8 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
     val link =
       if (serverMode) {
-        temp.renameTo(serverRootFile)
+        if(!serverRootFile.exists())
+          Files.move(temp.toPath, serverRootFile.toPath)
         s"http://${java.net.InetAddress.getLocalHost.getCanonicalHostName}:${port}"
       }
       else s"file://$temp"
